@@ -5,7 +5,11 @@ const port = 3000;
 app.set("view engine", "pug");
 app.get("/", (req, res, next)=> { res.render("pages/index"); });
 
-app.get("/myprofile", (req, res, next)=> { res.render("pages/profile"); });
+app.get("/profile", (req, res, next)=> {
+    let myProfile = require("./me.json")
+    res.render("pages/profile", {myProfile}); 
+});
+
 
 app.get("/signin", (req, res, next)=> { res.render("pages/signin"); });
 

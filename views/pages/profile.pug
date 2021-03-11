@@ -7,8 +7,48 @@ html
         h1 Welcome to your profile, #{myProfile.name}
         div#notifications
             h3 Notifications
-            ul
-            each element in myProfile.notifications
+            ul#no-bullets
+                each element in myProfile.notifications
+                    li 
+                        input.remNotif(type="button" name="remNotif" value="Remove Notification")
+                        p1  #{element.title} 
+                br
+        div#contributer
+            ul#no-bullets 
+                if myProfile.contributer 
+                    li
+                        input.isCont(type="radio" name="isCont" checked = true)
+                        p1 User is a contributer
+                    li
+                        input.isNotCont(type="radio" name="isNotCont" checked = false)
+                        p1 User is a not a contributer
+                else 
+                    li
+                        input.isCont(type="radio" name="isCont" checked = false)
+                        p1 User is a contributer
+                    li
+                        input.isNotCont(type="radio" name="isNotCont" checked = true)
+                        p1 User is a not a contributer
                 li 
-                    a(href='/profile') Remove Notification
-                    p1  #{element.title}
+                    input.changeCont(type="button" name="changeCont" value="Update Contributer Status")
+            br
+        div#watchlist
+            h3 Watchlist
+            ul#no-bullets
+                each element in myProfile.watchlist
+                    li
+                        a(href="/movie") #{element.Title} by #{element.Director}
+            br
+        div#followedPeople
+            h3 Followed People
+            ul#no-bullets
+                each element in myProfile.followedPeople
+                    li
+                        a(href="/person") #{element.name}
+            br
+        div#followedUsers
+            h3 Followed Users
+            ul#no-bullets
+                each element in myProfile.followedUsers
+                    li
+                        a(href="/otheruser") #{element.name}

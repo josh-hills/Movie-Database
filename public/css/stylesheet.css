@@ -1,0 +1,30 @@
+ul#no-bullets{
+   list-style-type: none; 
+   padding: 0;
+   margin: 0;
+}
+
+h3 {
+   display: inline;
+}
+
+body {
+   font-family: Verdana;
+   color: white;
+   background-image: url(https://wallpapercave.com/wp/wp2533041.jpg);
+   background-repeat: no-repeat;
+}
+
+a:link{
+   color:rgb(146,106,193);
+   text-decoration: none;
+}
+
+a:visited{
+   color:rgb(146,106,193);
+   text-decoration: none;
+}
+
+a:hover{
+   text-decoration: underline;
+}

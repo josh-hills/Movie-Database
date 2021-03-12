@@ -31,6 +31,13 @@ app.get("/movie", (req, res, next)=> {
     res.render("pages/movie", {myMovie}); 
 });
 
+//render review page
+app.get("/review", (req, res, next)=> {
+    let myProfile = require("./me.json")
+    let myReview = myProfile.watchlist[3].Review[0];
+    res.render("pages/review", {myReview}); 
+});
+
 //render sign in page
 app.get("/signin", (req, res, next)=> { res.render("pages/signin"); });
 

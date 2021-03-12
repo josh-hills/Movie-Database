@@ -1,5 +1,12 @@
 html
     head
-        title Example Review:
+        title #{myReview.rating}/10 Review
     body 
         include ../partials/header
+    h1 Review Rating: #{myReview.rating}/10
+    h3 Summary: 
+    p1 #{myReview.summary}
+    br
+    br
+    h3 Full Review: 
+    p1 #{myReview.full}

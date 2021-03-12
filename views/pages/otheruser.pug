@@ -12,21 +12,21 @@ html
         br
         div#watchlist
             h3 Watchlist
-            ul#no-bullets
+            ul.no-bullets
                 each element in userProfile.watchlist
                     li
                         a(href="/movie") #{element.Title} by #{element.Director}
             br
         div#followedPeople
             h3 Followed People
-            ul#no-bullets
+            ul.no-bullets
                 each element in userProfile.followedPeople
                     li
                         a(href="/person") #{element.name}
             br
         div#followedUsers
             h3 Followed Users
-            ul#no-bullets
+            ul.no-bullets
                 each element in userProfile.followedUsers
                     li
                         a(href="/otheruser") #{element.name}

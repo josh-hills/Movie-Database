@@ -1,4 +1,4 @@
-ul#no-bullets{
+ul.no-bullets{
    list-style-type: none; 
    padding: 0;
    margin: 0;
@@ -28,3 +28,83 @@ a:visited{
 a:hover{
    text-decoration: underline;
 }
+
+.container {
+   position: fixed;
+   left: 350px;
+   padding: 0;
+   margin: 0;
+}
+
+.left-element, .right-element {
+   display: inline-block;
+   float: left;
+}
+
+#reviewBox{
+   text-align: left;
+   padding-left:0;
+   padding-top:0;
+   padding-bottom:0.4em;
+   padding-right: 0.4em;
+   width: 500px;
+   height: 145px;
+}
+#summaryBox{
+   text-align: left;
+   padding-left:0;
+   padding-top:0;
+   padding-bottom:0.4em;
+   padding-right: 0.4em;
+   width: 500px;
+   height: 50px;
+}
+
+.btn{
+   min-width: 44px;
+   width: 4%;
+   text-align: center;
+   font-weight: bold;
+   font-family: 'Lato', sans-serif;
+}
+
+#btn10 {
+   background-color: #33FF00;
+}
+ 
+#btn9{
+   background-color: #66FF00;
+}
+ 
+#btn8 {
+   background-color: #99FF00;
+}
+#btn7 {
+   background-color: #CCFF00;
+}
+
+#btn6 {
+   background-color: #FFFF00;
+}
+ 
+#btn5 {
+   background-color: #FFCC00;
+}
+ 
+#btn4 {
+   background-color: #FF9900;
+}
+ 
+#btn3 {
+   background-color: #FF6600;
+}
+ 
+#btn2 {
+   background-color: #FF3300;
+}
+
+ 
+#btn1 {
+   background-color: #FF0000;
+}
+ 

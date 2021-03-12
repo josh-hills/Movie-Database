@@ -24,6 +24,13 @@ app.get("/otheruser", (req, res, next)=> {
     res.render("pages/otheruser", {userProfile, followsUser}); 
 });
 
+//render movie page
+app.get("/movie", (req, res, next)=> {
+    let myProfile = require("./me.json")
+    let myMovie = myProfile.watchlist[3];
+    res.render("pages/movie", {myMovie}); 
+});
+
 //render sign in page
 app.get("/signin", (req, res, next)=> { res.render("pages/signin"); });
 

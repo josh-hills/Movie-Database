@@ -1,5 +1,62 @@
 html
     head
-        title Movie Name
+        title Example movie page
     body 
         include ../partials/header
+        h1 #{myMovie.Title}
+        p1 by #{myMovie.Director}
+        br
+        input.addWatchlist(type="button" name="addWatchlist" value="Add to your Watchlist")
+        br
+        img(src = myMovie.Poster align = "left") 
+        br
+        br
+        div#actors
+            h3 Actors
+            ul.no-bullets
+                each element in myMovie.Actors
+                    li
+                        a(href="/person") #{element}
+            br
+        div#directors
+            h3 Directors
+            ul.no-bullets
+                each element in myMovie.Director
+                    li
+                        a(href="/person") #{element}
+            br
+        div#writers
+            h3 Writers
+            ul.no-bullets
+                each element in myMovie.Writer
+                    li
+                        a(href="/person") #{element}
+            br
+        div#review
+            h3 Reviews
+            ul.no-bullets
+                each element in myMovie.Review
+                    li
+                        a(href="/review") #{element.rating}/10
+        br
+        br
+        br
+        br
+        p1 #{myMovie.Plot}
+        br
+        br
+        div#addReview
+            h3 Add Review
+            br
+            textarea#reviewBox(name="reviewBox" placeholder = "Write your full review here")
+            br
+            br
+            textarea#summaryBox(name="summaryBox" placeholder = "Write your summary of the review here")
+            br
+            br
+            div#container
+                div#row
+                    each val in [1,2,3,4,5,6,7,8,9,10]
+                        button(class = "btn" id="btn"+val) #{val}
+            br
+            input.addReview(type="button" name="addReview" value="Submit Review")

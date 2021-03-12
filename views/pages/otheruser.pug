@@ -1,7 +1,32 @@
 html
     head
-        title Other User
+        title #{userProfile.name}'s profile
     body 
         include ../partials/header
+    div#main
+        h1 #{userProfile.name}'s Profile
+        if followsUser
+            input.unfollowBtn(type="button" name="unfollowButton" value="Unfollow User")
+        else 
+            input.afollowBtn(type="button" name="followButton" value="Follow User")
         br
-			    
+        div#watchlist
+            h3 Watchlist
+            ul#no-bullets
+                each element in userProfile.watchlist
+                    li
+                        a(href="/movie") #{element.Title} by #{element.Director}
+            br
+        div#followedPeople
+            h3 Followed People
+            ul#no-bullets
+                each element in userProfile.followedPeople
+                    li
+                        a(href="/person") #{element.name}
+            br
+        div#followedUsers
+            h3 Followed Users
+            ul#no-bullets
+                each element in userProfile.followedUsers
+                    li
+                        a(href="/otheruser") #{element.name}

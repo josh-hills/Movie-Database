@@ -1,7 +1,34 @@
 html
     head 
+        style. 
+            h3{text-decoration: underline;}
+            #header{text-align: center; font-family: helvetica; font-weight: bold; word-spacing: 10px;}
+            
+
         title Make a new contribution
     body 
         include ../partials/header
     div#main
         h1 Contribution Page
+    
+    div#addActor
+        h3 Add an Actor:
+        h5 Actor Name: 
+            input.actorName(type="text" placeholder="Enter Actor's Name")
+            input.addActor(type="button" value="Add Actor")
+
+    div#addMovie
+        h3 Add a Movie:
+        h5 Title: 
+            input.title(type="text" placeholder="Enter The Movie Title")
+        h5 Runtime: 
+            input.runtime(type="text" placeholder="Enter The Movie Runtime")
+        h5 Release Year: 
+            input.actorName(type="text" placeholder="Enter The Movie Release Year")        
+        h5 Writers: 
+            input.actorName(type="text" placeholder="Enter The Writers")
+        h5 Directors: 
+            input.actorName(type="text" placeholder="Enter The Directors")    
+        h5 Actors: 
+            input.actorName(type="text" placeholder="Enter The Actors")   
+        input.addMovie(type="button" value="Add Movie")

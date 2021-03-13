@@ -38,6 +38,13 @@ app.get("/review", (req, res, next)=> {
     res.render("pages/review", {myReview}); 
 });
 
+//render person page
+app.get("/person", (req, res, next)=> {
+    let myProfile = require("./me.json")
+    let myPerson = myProfile.followedPeople[0];
+    res.render("pages/person", {myPerson}); 
+});
+
 //render sign in page
 app.get("/signin", (req, res, next)=> { res.render("pages/signin"); });
 

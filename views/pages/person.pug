@@ -3,3 +3,35 @@ html
         title Person
     body 
         include ../partials/header
+    div#main
+        h1 #{myPerson.name}
+        div#colab
+            h3 Top Colaberators 
+            br
+            each element in myPerson.topColabs    
+                a(href="/person") #{element.name}
+                br
+            br
+        div#moviesDirected
+            if (myPerson.moviesDirected.length)
+                h3 Movies Directed 
+                br
+                each element in myPerson.moviesDirected 
+                    a(href="/movie") #{element}
+                    br
+                br
+        div#moviesActed
+            if (myPerson.moviesActed.length)
+                h3 Movies Acted
+                br
+                each element in myPerson.moviesActed 
+                    a(href="/movie") #{element}
+                    br
+                br
+        div#moviesWritten
+            if (myPerson.moviesWritten.length)
+                h3 Movies Written 
+                br
+                each element in myPerson.moviesWritten 
+                    a(href="/movie") #{element}
+                    br

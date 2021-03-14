@@ -2,8 +2,11 @@ html
     head 
         style. 
             #header{text-align: center; font-family: helvetica; font-weight: bold; word-spacing: 10px;}
-            #loginInfo{width: 50 px; border: 15px grey; padding: 10px; margin: 20px}
-            
+            #loginInfo{width: 270px; height: 150px; padding: 8px; border: 10px solid black; margin: 20px; background: darkgrey; background-size: 300px 300px}
+            .createAccount{width: 130px}
+            .login{width: 130px}
+            .userNameTitle{color: black}
+            .passwordTitle{color: black}
     title Sign In / Sign Up
     body 
         include ../partials/header
@@ -11,9 +14,9 @@ html
         h1 Sign In or Sign Up	
 
     div#loginInfo
-        h5 Username:
+        h5.userNameTitle Username:
             input.username(type="text" placeholder="Enter your username")
-        h5 Password: 
+        h5.passwordTitle Password: 
             input.password(type="text" placeholder="Enter your password")
         input.createAccount(type="button" name="createAccountButton" value="Create Account")
         input.login(type="button" name="loginButton" value="Log in")

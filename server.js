@@ -54,6 +54,8 @@ app.get("/search", (req, res, next)=> { res.render("pages/search"); });
 //render contribuation page
 app.get("/contribute", (req, res, next)=> { res.render("pages/contribute"); });
 
+//render search results page
+app.get("/searchresults", (req, res, next) => {res.render("pages/searchresults")})
 
 app.listen(port);
 console.log("Server listening at http://localhost:3000");

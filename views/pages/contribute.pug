@@ -3,32 +3,44 @@ html
         style. 
             h3{text-decoration: underline;}
             #header{text-align: center; font-family: helvetica; font-weight: bold; word-spacing: 10px;}
+
+            #addActor{width: 300px; height: px; padding: 8px; border: 10px solid black; margin: 20px; background: darkgrey; text-align: right;}
+            #addMovie{width: 300px; height: px; padding: 8px; border: 10px solid black; margin: 20px; background: darkgrey; text-align: right;}    
             
+            #addActorTitle{width: 300px; height: px; padding: 8px; margin: 20px;  text-align: center;}
+            #addMovieTitle{width: 300px; height: px; padding: 8px; margin: 20px;  text-align: center;}
+
+            .Label{color: black}
+   
 
         title Make a new contribution
     body 
         include ../partials/header
     div#main
         h1 Contribution Page
-    
+
+    div#addActorTitle
+        h3.addActorTitle Add an Actor:
+
     div#addActor
-        h3 Add an Actor:
-        h5 Actor Name: 
+        h5.label Actor Name: 
             input.actorName(type="text" placeholder="Enter Actor's Name")
-            input.addActor(type="button" value="Add Actor")
+        input.addActor(type="button" value="Add Actor")
+
+    div#addMovieTitle
+        h3 Add a Movie:
 
     div#addMovie
-        h3 Add a Movie:
-        h5 Title: 
-            input.title(type="text" placeholder="Enter The Movie Title")
-        h5 Runtime: 
-            input.runtime(type="text" placeholder="Enter The Movie Runtime")
-        h5 Release Year: 
-            input.actorName(type="text" placeholder="Enter The Movie Release Year")        
-        h5 Writers: 
-            input.actorName(type="text" placeholder="Enter The Writers")
-        h5 Directors: 
-            input.actorName(type="text" placeholder="Enter The Directors")    
-        h5 Actors: 
-            input.actorName(type="text" placeholder="Enter The Actors")   
+        h5.label Title: 
+            input.titleLabel(type="text" placeholder="Enter The Movie Title")
+        h5.label Runtime: 
+            input.runtimeLabel(type="text" placeholder="Enter The Movie Runtime")
+        h5.label Release Year: 
+            input.releaseLabel(type="text" placeholder="Enter The Release Year")        
+        h5.label Writers: 
+            input.writersLabel(type="text" placeholder="Enter The Writers")
+        h5.label Directors: 
+            input.directorsLabel(type="text" placeholder="Enter The Directors")    
+        h5.label Actors: 
+            input.actorsLabel(type="text" placeholder="Enter The Actors")   
         input.addMovie(type="button" value="Add Movie")

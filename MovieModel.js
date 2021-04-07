@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const { nanoid } = require('nanoid')
 
 let movieSchema = Schema({
+    _id: {
+        type: String,
+        default: ()=> nanoid()
+    },
     Title: String,
     Year: Number,
     Rated: String,

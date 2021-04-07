@@ -25,8 +25,8 @@ db.once('open', function() {
 		let countFail = 0;
 		let countSuccess = 0;	
 		movies.forEach(movie => {
-			let b = new Movie(movie);
-			b.save(function(err, callback){
+			let m = new Movie(movie);
+			m.save(function(err, callback){
 				finishedmovies++;
 				if(err){
 					countFail++;
@@ -35,9 +35,6 @@ db.once('open', function() {
 					countSuccess++;
 				}
 
-				if(finishedmovies % 500 == 0){
-					console.log("Finished movie #" + finishedmovies + "/" + totalmovies);
-				}
 				if(finishedmovies == totalmovies){
 					mongoose.connection.close();
 					console.log("Finished.");

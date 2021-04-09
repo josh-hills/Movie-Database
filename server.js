@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+let movieController = require("./movie-router")
+
 app.set("view engine", "pug");
 
 app.use(express.static(__dirname + "/public"));
@@ -25,11 +27,7 @@ app.get("/otheruser", (req, res, next)=> {
 });
 
 //render movie page
-app.get("/movie", (req, res, next)=> {
-    let myProfile = require("./me.json")
-    let myMovie = myProfile.watchlist[3];
-    res.render("pages/movie", {myMovie}); 
-});
+app.use("/movie", movieController);
 
 //render review page
 app.get("/review", (req, res, next)=> {

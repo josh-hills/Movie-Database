@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-let movieController = require("./movie-router")
+let movieController = require("./movie-router");
 
 app.set("view engine", "pug");
 
@@ -40,6 +40,7 @@ app.get("/review", (req, res, next)=> {
 app.get("/person", (req, res, next)=> {
     let myProfile = require("./me.json")
     let myPerson = myProfile.followedPeople[0];
+    console.log(myPerson);
     res.render("pages/person", {myPerson}); 
 });
 

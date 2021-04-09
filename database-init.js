@@ -19,7 +19,7 @@ db.once('open', function() {
 		console.log("Dropped movie database. Starting re-creation.");
 
         //modify the "movie-data-____.json below to change the number of movies in the database"
-		let movies = JSON.parse(fs.readFileSync("movie-data-10.json"));
+		let movies = JSON.parse(fs.readFileSync("movie-data-100.json"));
 		let totalmovies = movies.length;
 		let finishedmovies = 0;
 		let countFail = 0;

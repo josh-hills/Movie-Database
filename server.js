@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-let movieController = require("./movie-router");
+let movieController = require("./controllers/movie-router");
+let profileController = require("./controllers/profile-router");
 
 app.set("view engine", "pug");
 
@@ -12,10 +13,7 @@ app.use(express.static(__dirname + "/public"));
 app.get("/", (req, res, next)=> { res.render("pages/index"); });
 
 //render profile page
-app.get("/profile", (req, res, next)=> {
-    let myProfile = require("./me.json")
-    res.render("pages/profile", {myProfile}); 
-});
+app.use("/profile", profileController);
 
 //render otherUsers page, triggered by clicking a user under "Followed Users", this checks if the user is contained in your followedUsers, changes follow button accordingly
 app.get("/otheruser", (req, res, next)=> {

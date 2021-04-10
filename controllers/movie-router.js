@@ -33,8 +33,6 @@ async function find (name, query, cb) {
 }
 
 async function doRender(req, res, next, myMovie){
-    console.log("Ac: " + myMovie.Actors[0]);
-    console.log(myMovie);
     res.render("pages/movie", {myMovie}); 
 }
 

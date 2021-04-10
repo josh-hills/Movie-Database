@@ -7,14 +7,14 @@ html
         include ../partials/header
     div#main
         h1 Welcome to your profile, #{myProfile.name}
-        div#notifications
-            h3 Notifications
-            ul.no-bullets
-                each element in myProfile.notifications
-                    li 
-                        input.remNotif(type="button" name="remNotif" value="Remove Notification")
-                        p1  #{element.title} 
-                br
+        //- div#notifications
+        //-     h3 Notifications
+        //-     ul.no-bullets
+        //-         each element in myProfile.notifications
+        //-             li 
+        //-                 input.remNotif(type="button" name="remNotif" value="Remove Notification")
+        //-                 p1  #{element.title} 
+        //-         br
         div#contributer
             ul.no-bullets 
                 if myProfile.contributer 
@@ -37,7 +37,7 @@ html
         div#watchlist
             h3 Watchlist
             ul.no-bullets
-                each element in myProfile.watchlist
+                each element in myWatchlist
                     li
                         a(href="/movie") #{element.Title} by #{element.Director}
             br

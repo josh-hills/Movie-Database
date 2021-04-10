@@ -3,34 +3,45 @@ const mongoose = require("mongoose");
 const path = require('path');
 const fs = require("fs");
 const profileRotuer = express.Router();
+const Movie = require("../MovieModel.js");
 mongoose.connect('mongodb://localhost/movies', {useNewUrlParser: true});
-let connection = mongoose.connection;
+let db = mongoose.connection;
 
-profileRotuer.get("/", (req, res, next)=> {
+profileRotuer.get("/", async (req, res, next)=> {
     let myProfile = require("../me.json");
     let myWatchlist = [];
-    for(let i = 0; i < myProfile.watchlist.length; i++){
-        let id = myProfile.watchlist[i].id;
-        find('movies', {_id : id}, function (err, docs) {
-            let myMovie = docs[0];
-            console.log(id);
-            myWatchlist.push(myMovie);
-            if(!(i < myProfile.watchlist.length-1)){
-                console.log("x")
-                doRender(req, res, next, myProfile, myWatchlist);
-            }
-        });
+    try{
+        for(let i = 0; i < myProfile.watchlist.length; i++){
+            let id = myProfile.watchlist[i].id;
+            let mov = await find(id);
+            console.log(mov);
+            myWatchlist.push(mov);
+        }
+
+        doRender(req, res, next, myProfile, myWatchlist);
+    } catch(error){
+		res.status(404).send("404 Error");
     }
 });
 
-async function find (name, query, cb) {
-    mongoose.connection.db.collection(name, function (err, collection) {
-       collection.find(query).toArray(cb);
-   });
+
+function find (query) {
+    return new Promise((resolve, reject) => {
+        db.collection("movies").findOne({_id:query},function(err, result){
+            if(err){
+                res.status(500).send("Error reading database.");
+                return;
+            }
+            if(!result){
+                res.status(404).send("Unknown ID");
+                return;
+            }
+            resolve(result);
+        })
+    });
 }
 
-async function doRender(req, res, next, myProfile, myWatchlist){
-    console.log(myWatchlist);
+function doRender(req, res, next, myProfile, myWatchlist){
     res.render("pages/profile", {myProfile, myWatchlist}); 
 }
 

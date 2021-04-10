@@ -1,9 +1,6 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const path = require('path');
-const fs = require("fs");
 const profileRotuer = express.Router();
-const Movie = require("../MovieModel.js");
 mongoose.connect('mongodb://localhost/movies', {useNewUrlParser: true});
 let db = mongoose.connection;
 

@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const Movie = require("./MovieModel.js");
+const Movie = require("./models/MovieModel.js");
 const fs = require("fs");
 const csv = require('csv-parser')
 const results = []
@@ -19,7 +19,7 @@ db.once('open', function() {
 		console.log("Dropped movie database. Starting re-creation.");
 
         //modify the "movie-data-____.json below to change the number of movies in the database"
-		let movies = JSON.parse(fs.readFileSync("movie-data-100.json"));
+		let movies = JSON.parse(fs.readFileSync("./movieData/movie-data-100.json"));
 		let totalmovies = movies.length;
 		let finishedmovies = 0;
 		let countFail = 0;

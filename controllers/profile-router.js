@@ -4,6 +4,7 @@ const profileRotuer = express.Router();
 mongoose.connect('mongodb://localhost/movies', {useNewUrlParser: true});
 let db = mongoose.connection;
 
+//loops through the users watchlist and adds it to the myWatchlist array, this and myProfile are passed to profile.pug
 profileRotuer.get("/", async (req, res, next)=> {
     let myProfile = require("../me.json");
     let myWatchlist = [];
@@ -11,7 +12,6 @@ profileRotuer.get("/", async (req, res, next)=> {
         for(let i = 0; i < myProfile.watchlist.length; i++){
             let id = myProfile.watchlist[i].id;
             let mov = await find(id);
-            console.log(mov);
             myWatchlist.push(mov);
         }
 
@@ -21,7 +21,7 @@ profileRotuer.get("/", async (req, res, next)=> {
     }
 });
 
-
+//function that queries the id for the passed query, using promises ensures that we can wait for the end of the function
 function find (query) {
     return new Promise((resolve, reject) => {
         db.collection("movies").findOne({_id:query},function(err, result){
@@ -38,6 +38,7 @@ function find (query) {
     });
 }
 
+//renders profile page
 function doRender(req, res, next, myProfile, myWatchlist){
     res.render("pages/profile", {myProfile, myWatchlist}); 
 }

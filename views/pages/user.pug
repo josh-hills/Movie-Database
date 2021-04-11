@@ -18,7 +18,7 @@ html
             ul.no-bullets
                 each element in userWatchlist
                     li
-                        a(href="/movie") #{element.Title} by #{element.Director}
+                        a(href="/movie?id="+element._id) #{element.Title} by #{element.Director}
             br
         div#followedPeople
             h3 Followed People

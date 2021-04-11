@@ -5,6 +5,7 @@ const port = 3000;
 let movieController = require("./controllers/movie-router");
 let profileController = require("./controllers/profile-router");
 let signinController = require("./controllers/signin-router");
+let searchController = require("./controllers/search-router");
 
 app.set("view engine", "pug");
 
@@ -28,6 +29,8 @@ app.get("/otheruser", (req, res, next)=> {
 app.use("/movie", movieController);
 app.use("/signin", signinController);
 app.use("/profile", profileController);
+app.use("/search", searchController)
+
 
 //render review page
 app.get("/review", (req, res, next)=> {

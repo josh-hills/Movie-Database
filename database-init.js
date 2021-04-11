@@ -5,7 +5,7 @@ const fs = require("fs");
 const csv = require('csv-parser')
 const results = []
 
-mongoose.connect('mongodb://localhost/movies', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));

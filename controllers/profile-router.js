@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const profileRotuer = express.Router();
-mongoose.connect('mongodb://localhost/movies', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
 
 //loops through the users watchlist and adds it to the myWatchlist array, this and myProfile are passed to profile.pug
@@ -26,12 +26,10 @@ function find (query) {
     return new Promise((resolve, reject) => {
         db.collection("movies").findOne({_id:query},function(err, result){
             if(err){
-                res.status(500).send("Error reading database.");
-                return;
+                reject("Error reading database.");
             }
             if(!result){
-                res.status(404).send("Unknown ID");
-                return;
+                reject("ID not found");
             }
             resolve(result);
         })

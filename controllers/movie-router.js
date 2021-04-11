@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const movieRouter = express.Router();
-mongoose.connect('mongodb://localhost/movies', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
 
 

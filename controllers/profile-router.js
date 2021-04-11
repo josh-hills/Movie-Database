@@ -20,6 +20,8 @@ profileRotuer.get("/", async (req, res, next)=> {
         } catch(error){
             res.status(404).send("404 Error");
         }
+    } else {
+        return res.redirect("/signin");
     }
     
 });

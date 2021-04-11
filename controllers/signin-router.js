@@ -32,11 +32,11 @@ function searchUser(un, pass, req, res, next) {
                 u.save(function(err, callback){
                     if(err){
                         console.log(err.message);
-                        reject(err);
+                        reject("/profile");
                     }else{
                         console.log("user created");
                         req.session.loggedin = true;
-                        req.session.username = username;
+                        req.session.username = un;
                         resolve("/profile");
                     }
                 });
@@ -48,9 +48,8 @@ function searchUser(un, pass, req, res, next) {
                 resolve("/profile");
             } else {
                 //password didnt match, return
-                res.status(401).send("Not authorized. Invalid password.");
+                resolve("/signin")
             }
-            resolve(result);
         })
     });
 }

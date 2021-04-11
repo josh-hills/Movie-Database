@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 let userSchema = Schema({
     username: String,
     password: String,
-    followedPeople: [String],
-    followedUsers: [String],
-    watchlist: [String]
+    contributer: Boolean,
+    followedPeople: [],
+    followedUsers: [],
+    watchlist: []
 });
 
 module.exports = mongoose.model("User", userSchema);

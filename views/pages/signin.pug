@@ -13,4 +13,7 @@ html
             input.username(type="text" placeholder="Enter your username" name="username" required)
         h5.label Password: 
             input.password(type="password" placeholder="Enter your password" name="password" required)
-        input.submit(type="submit" name="submitCreds" value="Log in / Sign up")
+        if loggedIn
+            input.submit(type="submit" name="submitCreds" value="Log in / Sign up" disabled = true)
+        else
+            input.submit(type="submit" name="submitCreds" value="Log in / Sign up")

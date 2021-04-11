@@ -7,20 +7,25 @@ let db = mongoose.connection;
 
 //Create router
 signinRouter.get("/", async (req, res, next)=> {
-    res.render("pages/signin");
+    let loggedIn = req.session.loggedin;
+    res.render("pages/signin", {loggedIn});
 });
 
 signinRouter.post("/", async (req, res, next)=> {
-    searchUser(req.body.username,req.body.password);
-    res.render("pages/signin");
+    let x = await searchUser(req.body.username,req.body.password, req, res, next);
+    console.log(x);
+    return res.redirect(x);
 });
 
 //function that queries the id for the passed query, using promises ensures that we can wait for the end of the function
-function searchUser(un, pass) {
+function searchUser(un, pass, req, res, next) {
     return new Promise((resolve, reject) => {
         db.collection("users").findOne({username:un},function(err, result){
-            if(err){
-                reject("Error reading database.");
+            if(req.session.loggedin){
+                res.status(200).send("Already logged in.");
+                resolve("/profile")
+            }else if(err){
+                reject("/signin");
             }else if(!result){
                 //create an account with given credentials
                 let u = new User({username:un, password:pass, followedPeople:[], followedUsers:[],watchlist:[]});
@@ -30,15 +35,21 @@ function searchUser(un, pass) {
                         reject(err);
                     }else{
                         console.log("user created");
-                        resolve("user created");
+                        req.session.loggedin = true;
+                        req.session.username = username;
+                        resolve("/profile");
                     }
                 });
             }else if(result.password == pass){
-                //start session, user is logged in
+                //login a user if password matches
+                req.session.loggedin = true;
+                req.session.username = un;
+                console.log("user logged in:" + req.session.username);
+                resolve("/profile");
             } else {
-                //user submitted incorrect password, try again
+                //password didnt match, return
+                res.status(401).send("Not authorized. Invalid password.");
             }
-
             resolve(result);
         })
     });

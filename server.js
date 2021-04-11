@@ -1,5 +1,6 @@
 const express = require("express");
-const bp = require('body-parser')
+const bp = require('body-parser');
+const session = require('express-session');
 const app = express();
 const port = 3000;
 
@@ -11,13 +12,25 @@ let searchController = require("./controllers/search-router");
 // middleware
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
+app.use(session({
+    secret: "4078046324", 
+    loggedin:false, 
+    username:null,
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(express.static(__dirname + "/public"));
+
 
 app.set("view engine", "pug");
 
-app.use(express.static(__dirname + "/public"));
-
 //render homepage
-app.get("/", (req, res, next)=> { res.render("pages/index"); });
+app.get("/", (req, res, next)=> { 
+    if(!req.session.loggedin){
+        req.session.loggedin=false;
+    }
+    res.render("pages/index");
+});
 
 //render profile page
 
@@ -52,9 +65,6 @@ app.get("/person", (req, res, next)=> {
     res.render("pages/person", {myPerson}); 
 });
 
-//render search page
-app.get("/search", (req, res, next)=> { res.render("pages/search"); });
-
 //render contribuation page
 app.get("/contribute", (req, res, next)=> { res.render("pages/contribute"); });
 
@@ -63,4 +73,4 @@ app.get("/searchresults", (req, res, next) => {res.render("pages/searchresults")
 
 app.listen(port);
 console.log("Server listening at http://localhost:3000");
-
+module.exports = app;

@@ -32,21 +32,4 @@ searchRouter.post("/", async (req, res, next) => {
     });
 });
 
-
-/*
-//function that queries the id for the passed query, using promises ensures that we can wait for the end of the function
-function find (query) {
-    return new Promise((resolve, reject) => {
-        db.collection("movies").findOne({_id:query},function(err, result){
-            if(err){
-                reject("Error reading database.");
-            }
-            if(!result){
-                reject("ID not found");
-            }
-            resolve(result);
-        })
-    });
-}
-*/
 module.exports = searchRouter;

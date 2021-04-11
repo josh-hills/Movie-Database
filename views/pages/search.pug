@@ -23,8 +23,9 @@ html
         form#searchButton(action="/search", method="post")
             input.enterSearch(type="submit" name="Search" placeholder="Search" value="Search")
 
-    div#results
-        h1 Results (#{searchResults.length} results): 
-        each movie in searchResults
-            h2 #{movie.Title}
-                br
+    div#movieResults
+        h1.resultsHeader Results (#{searchResults.length} results): 
+        ol
+            each movie in searchResults
+                li.movieLI #{movie.Title} (Year: #{movie.Year})
+                    br

@@ -8,12 +8,13 @@ let movieController = require("./controllers/movie-router");
 let profileController = require("./controllers/profile-router");
 let signinController = require("./controllers/signin-router");
 let searchController = require("./controllers/search-router");
+let userController = require("./controllers/user-router")
 
 // middleware
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
 app.use(session({
-    secret: "4078046324", 
+    secret: "407804612236324", 
     loggedin:false, 
     username:null,
     resave: true,
@@ -32,22 +33,13 @@ app.get("/", (req, res, next)=> {
     res.render("pages/index");
 });
 
-//render profile page
-
-//render otherUsers page, triggered by clicking a user under "Followed Users", this checks if the user is contained in your followedUsers, changes follow button accordingly
-app.get("/otheruser", (req, res, next)=> {
-    let myProfile = require("./me.json");
-    let userProfile = require("./otheruser.json");
-    let followsUser = myProfile.followedUsers.some(user => user.name == userProfile.name);
-    console.log(followsUser);
-    res.render("pages/otheruser", {userProfile, followsUser}); 
-});
 
 //init controllers
 app.use("/movie", movieController);
 app.use("/signin", signinController);
 app.use("/profile", profileController);
-app.use("/search", searchController)
+app.use("/search", searchController);
+app.use("/user", userController);
 
 
 //render review page

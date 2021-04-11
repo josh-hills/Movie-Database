@@ -20,5 +20,11 @@ html
         p.label Actor Name: 
             input.actorName(type="text" placeholder="Actor Name") 
         
-        a(href="/searchresults")
-            input.enterSearch(type="button" name="Search" placeholder="Search" value="Search")
+        form#searchButton(action="/search", method="post")
+            input.enterSearch(type="submit" name="Search" placeholder="Search" value="Search")
+
+    div#results
+        h1 Results (#{searchResults.length} results): 
+        each movie in searchResults
+            h2 #{movie.Title}
+                br

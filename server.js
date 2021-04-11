@@ -1,4 +1,5 @@
 const express = require("express");
+const bp = require('body-parser')
 const app = express();
 const port = 3000;
 
@@ -6,6 +7,10 @@ let movieController = require("./controllers/movie-router");
 let profileController = require("./controllers/profile-router");
 let signinController = require("./controllers/signin-router");
 let searchController = require("./controllers/search-router");
+
+// middleware
+app.use(bp.json());
+app.use(bp.urlencoded({extended: true}));
 
 app.set("view engine", "pug");
 

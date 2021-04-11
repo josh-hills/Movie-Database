@@ -8,10 +8,9 @@ html
     div#main
         h1 Sign In or Sign Up	
 
-    div#loginInfo
+    form#loginInfo(action="/signin" method="post")
         h5.label Username:
-            input.username(type="text" placeholder="Enter your username")
+            input.username(type="text" placeholder="Enter your username" name="username" required)
         h5.label Password: 
-            input.password(type="text" placeholder="Enter your password")
-        input.createAccount(type="button" name="createAccountButton" value="Create Account")
-        input.login(type="button" name="loginButton" value="Log in")
+            input.password(type="password" placeholder="Enter your password" name="password" required)
+        input.submit(type="submit" name="submitCreds" value="Log in / Sign up")

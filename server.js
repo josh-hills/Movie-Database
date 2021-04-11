@@ -4,6 +4,7 @@ const port = 3000;
 
 let movieController = require("./controllers/movie-router");
 let profileController = require("./controllers/profile-router");
+let signinController = require("./controllers/signin-router");
 
 app.set("view engine", "pug");
 
@@ -13,7 +14,6 @@ app.use(express.static(__dirname + "/public"));
 app.get("/", (req, res, next)=> { res.render("pages/index"); });
 
 //render profile page
-app.use("/profile", profileController);
 
 //render otherUsers page, triggered by clicking a user under "Followed Users", this checks if the user is contained in your followedUsers, changes follow button accordingly
 app.get("/otheruser", (req, res, next)=> {
@@ -24,8 +24,10 @@ app.get("/otheruser", (req, res, next)=> {
     res.render("pages/otheruser", {userProfile, followsUser}); 
 });
 
-//render movie page
+//init controllers
 app.use("/movie", movieController);
+app.use("/signin", signinController);
+app.use("/profile", profileController);
 
 //render review page
 app.get("/review", (req, res, next)=> {
@@ -41,9 +43,6 @@ app.get("/person", (req, res, next)=> {
     console.log(myPerson);
     res.render("pages/person", {myPerson}); 
 });
-
-//render sign in page
-app.get("/signin", (req, res, next)=> { res.render("pages/signin"); });
 
 //render search page
 app.get("/search", (req, res, next)=> { res.render("pages/search"); });

@@ -28,16 +28,28 @@ searchRouter.post("/", async (req, res, next) => {
     console.log("Actor Name: " + req.body.actorName);
     console.log();
     //Query for collection
+
+    db.collection("people").find({_id: "3ZqEk8Q9jjqXsplJm6dIt"}).toArray( function(err, results){
+        if(err){
+            res.status(500).send("Error Reading Database.");
+            return;
+        } 
+        console.log(results)
+        console.log(results.length + "total people")
+    })
+
     db.collection("movies").find({
+        //Query for each param
         $or: [
-            {Title: req.body.title},
-            {Genre: req.body.genre},
-            {Actors: req.body.actorName}
+            {title: req.body.title},
+            {genre: req.body.genre},
+            {actors: req.body.actorName}
         ]}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
             return;
         }
+        //Results is the arraylist of movies
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
         res.status(200).render("pages/search",{searchResults: results.splice(0,10)});

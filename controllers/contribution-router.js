@@ -38,7 +38,7 @@ contributionRouter.post("/movie", async (req, res, next) => {
             return;
         }
         console.log("Movie Added: " + movie)
-        console.log(results.length + "Movies in Database.")
+        console.log(results.length + " Movies in Database.")
         res.status(200).render("pages/contribute"); 
     })
     

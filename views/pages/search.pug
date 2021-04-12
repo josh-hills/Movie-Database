@@ -28,5 +28,5 @@ html
         ol
             each movie in searchResults
                 li.movieLI 
-                    a(href="/movie?id="+movie._id) #{movie.Title} by #{movie.Director}
+                    a(href="/movie?id="+movie._id) #{movie.title} by #{movie.director}
                     br

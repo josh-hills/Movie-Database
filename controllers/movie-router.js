@@ -69,6 +69,9 @@ function find (coll,i,q, res) {
 //renders movie page
 async function doRender(req, res, next, myMovie){
     let myProfile = [];
+    let actors = [];
+    let directors = [];
+    let writers = [];
     let following;
     if(req.session.loggedin){
         following = false;
@@ -79,7 +82,19 @@ async function doRender(req, res, next, myMovie){
             }
         }
     }
-    res.render("pages/movie", {myMovie,myProfile,following}); 
+    for(var i = 0; i < myMovie.director.length; i++) {
+        let d = await find("people","_id",myMovie.director[i],res);
+        directors.push(d);
+    }
+    for(var i = 0; i < myMovie.actor.length; i++) {
+        let d = await find("people","_id",myMovie.actor[i],res);
+        actors.push(d);
+    }
+    for(var i = 0; i < myMovie.writer.length; i++) {
+        let d = await find("people","_id",myMovie.writer[i],res);
+        writers.push(d);
+    }
+    res.render("pages/movie", {myMovie,myProfile,following,directors,actors,writers}); 
 }
 
 

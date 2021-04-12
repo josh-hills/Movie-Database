@@ -45,7 +45,7 @@ function find (coll,i,q) {
 }
 
 //renders profile page
-function doRender(req, res, next, myProfile, myWatchlist){
+async function doRender(req, res, next, myProfile, myWatchlist){
     res.render("pages/profile", {myProfile, myWatchlist}); 
 }
 

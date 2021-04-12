@@ -4,7 +4,7 @@ const { nanoid } = require('nanoid');
 const Person = require("./PersonModel.js");
 
 let movieSchema = Schema({
-    _id: {type: String,},
+    _id: {type: String},
     title: String,
     year: Number,
     rated: String,

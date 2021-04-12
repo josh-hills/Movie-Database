@@ -6,34 +6,34 @@ html
     body 
         include ../partials/header
     div#main
-        h1 #{myPerson.name}
-        div#colab
-            h3 Top Collaborators 
-            br
-            each element in myPerson.topColabs    
-                a(href="/person") #{element.name}
-                br
-            br
+        h1 #{person.name}
+        //- div#colab
+        //-     h3 Top Collaborators 
+        //-     br
+        //-     each element in person.topColabs    
+        //-         a(href="/person") #{element.name}
+        //-         br
+        //-     br
         div#moviesDirected
-            if (myPerson.moviesDirected.length)
+            if (directors.length)
                 h3 Movies Directed 
                 br
-                each element in myPerson.moviesDirected 
-                    a(href="/movie") #{element}
+                each element in directors
+                    a(href="/movie") #{element.title}
                     br
                 br
         div#moviesActed
-            if (myPerson.moviesActed.length)
+            if (actors.length)
                 h3 Movies Acted
                 br
-                each element in myPerson.moviesActed 
-                    a(href="/movie") #{element}
+                each element in actors
+                    a(href="/movie") #{element.title}
                     br
                 br
         div#moviesWritten
-            if (myPerson.moviesWritten.length)
+            if (writers.length)
                 h3 Movies Written 
                 br
-                each element in myPerson.moviesWritten 
-                    a(href="/movie") #{element}
+                each element in writers
+                    a(href="/movie") #{element.title}
                     br

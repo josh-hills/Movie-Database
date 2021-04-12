@@ -27,5 +27,6 @@ html
         h1.resultsHeader Results (#{searchResults.length} results): 
         ol
             each movie in searchResults
-                li.movieLI #{movie.Title} (Year: #{movie.Year})
+                li.movieLI 
+                    a(href="/movie?id="+movie._id) #{movie.Title} by #{movie.Director}
                     br

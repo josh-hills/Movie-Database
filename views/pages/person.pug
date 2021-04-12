@@ -19,7 +19,7 @@ html
                 h3 Movies Directed 
                 br
                 each element in directors
-                    a(href="/movie") #{element.title}
+                    a(href="/movie?id="+element._id) #{element.title}
                     br
                 br
         div#moviesActed
@@ -27,7 +27,7 @@ html
                 h3 Movies Acted
                 br
                 each element in actors
-                    a(href="/movie") #{element.title}
+                    a(href="/movie?id="+element._id) #{element.title}
                     br
                 br
         div#moviesWritten
@@ -35,5 +35,5 @@ html
                 h3 Movies Written 
                 br
                 each element in writers
-                    a(href="/movie") #{element.title}
+                    a(href="/movie?id="+element._id) #{element.title}
                     br

@@ -23,7 +23,6 @@ function find (coll,i,q, res) {
     return new Promise((resolve, reject) => {
         let query = {};
         query[i] = q;
-        console.log(i)
         db.collection(coll).findOne(query,function(err, result){
             if(err){
                 res.status(500).send("Error reading database.");

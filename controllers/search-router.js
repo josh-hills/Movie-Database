@@ -33,7 +33,7 @@ searchRouter.post("/", async (req, res, next) => {
             {Title: req.body.title},
             {Genre: req.body.genre},
             {Actors: req.body.actorName}
-        ]}).toArray( function(err, results){
+        ]}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
             return;

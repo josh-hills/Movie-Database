@@ -10,6 +10,7 @@ let signinController = require("./controllers/signin-router");
 let searchController = require("./controllers/search-router");
 let userController = require("./controllers/user-router");
 let contributionController = require("./controllers/contribution-router");
+let personController = require("./controllers/person-router");
 // middleware
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
@@ -41,6 +42,7 @@ app.use("/profile", profileController);
 app.use("/search", searchController);
 app.use("/user", userController);
 app.use("/contribute", contributionController);
+app.use("/person", personController);
 
 
 //render review page
@@ -48,14 +50,6 @@ app.get("/review", (req, res, next)=> {
     let myProfile = require("./me.json");
     let myReview = myProfile.watchlist[3].Review[0];
     res.render("pages/review", {myReview}); 
-});
-
-//render person page
-app.get("/person", (req, res, next)=> {
-    let myProfile = require("./me.json");
-    let myPerson = myProfile.followedPeople[0];
-    console.log(myPerson);
-    res.render("pages/person", {myPerson}); 
 });
 
 //render contribuation page

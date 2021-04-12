@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const Movie = require("./MovieModel.js");
 
 let personSchema = Schema({
-    _id: {type: String,},
+    _id: {type: String},
     name: String,
     director: [{type:String}],
     actor: [{type:String}],

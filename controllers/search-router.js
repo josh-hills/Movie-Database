@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const searchRouter = express.Router();
+
+const app = require('../server');
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
 
@@ -20,8 +22,13 @@ searchRouter.get("/", async (req, res, next)=> {
 
 searchRouter.post("/", async (req, res, next) => {
     console.log("Search Button Pressed");
+    console.log();
+    console.log("Title: " + req.body.title);
+    console.log("Genre: " + req.body.genre);
+    console.log("Actor Name: " + req.body.actorName);
+    console.log();
     //Query for collection
-    db.collection("movies").find({Year: {$gt: 2000}}).toArray( function(err, results){
+    db.collection("movies").find({Title: req.body.title, Genre: req.body.genre, Actors: req.body.actorName}).toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
             return;
@@ -31,5 +38,9 @@ searchRouter.post("/", async (req, res, next) => {
         res.status(200).render("pages/search",{searchResults: results.splice(0,10)});
     });
 });
+
+function searchParams(title, genre, actor, req, res, next){
+
+}
 
 module.exports = searchRouter;

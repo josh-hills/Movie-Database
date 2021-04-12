@@ -7,20 +7,20 @@ html
         include ../partials/header
     div#main
         h1 Search Page		
-    
-    div#searchPageTitle
-        h3.searchTitle Search
-    div#search
-        p.label Title:      
-            input.title(type="text" placeholder="Title")
+    form#searchButton(action="/search", method="post")
+        div#searchPageTitle
+            h3.searchTitle Search
+        div#search
+            p.label Title:      
+                input.title(type="text" placeholder="Title" name= "title")
+            
+            p.label Genre:         
+                input.genre(type="text" placeholder="Genre" name="genre")
+            
+            p.label Actor Name: 
+                input.actorName(type="text" placeholder="Actor Name" name="actorName") 
         
-        p.label Genre:         
-            input.genre(type="text" placeholder="Genre")
         
-        p.label Actor Name: 
-            input.actorName(type="text" placeholder="Actor Name") 
-        
-        form#searchButton(action="/search", method="post")
             input.enterSearch(type="submit" name="Search" placeholder="Search" value="Search")
 
     div#movieResults

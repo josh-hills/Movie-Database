@@ -8,7 +8,12 @@ html
         h1 #{myMovie.Title}
         p1 by #{myMovie.Director}
         br
-        input.addWatchlist(type="button" name="addWatchlist" value="Add to your Watchlist")
+        form#watchlist(action="/movie?id="+myMovie._id method="post")
+            if (typeof(following)) == "undefined"
+            else if following
+                input.submit(type="submit" name="unfollow" value="Remove from your watchlist")
+            else if !following
+                input.submit(type="submit" name="follow" value="Add to your watchlist")
         br
         img(src = myMovie.Poster align = "left") 
         br

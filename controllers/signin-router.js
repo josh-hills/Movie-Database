@@ -13,7 +13,6 @@ signinRouter.get("/", async (req, res, next)=> {
 
 signinRouter.post("/", async (req, res, next)=> {
     let x = await searchUser(req.body.username,req.body.password, req, res, next);
-    console.log(x);
     return res.redirect(x);
 });
 

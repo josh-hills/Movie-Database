@@ -11,7 +11,7 @@ movieRouter.get("/", async (req, res, next)=> {
     let id;
 	try{
 		id = req.query.id;
-        let mov = await find(id);
+        let mov = await find("movies","_id",id,res);
         doRender(req, res, next, mov);
 	}catch{
 		res.status(404).send("Unknown ID");
@@ -19,10 +19,41 @@ movieRouter.get("/", async (req, res, next)=> {
 	}
 });
 
-//function that queries the id for the passed query, using promises ensures that we can wait for the end of the function
-function find (query) {
+movieRouter.post("/", async (req, res, next)=> {
+    myProfile = await find("users","username",req.session.username, res);
+    let mov = await find("movies","_id",req.query.id,res);
+    if(req.body.unfollow){   
+        for(var i = 0; i < myProfile.watchlist.length; i++) {
+            if (myProfile.watchlist[i].id == req.query.id) {
+                myProfile.watchlist.splice(i, 1);
+                await db.collection("users").updateOne(
+                    {username:myProfile.username},
+                    {
+                        $set:{"watchlist":myProfile.watchlist}
+                    }
+                );
+            }
+        }
+        doRender(req, res, next, mov);
+    }else if(req.body.follow){
+        let query = {};
+        query["id"] = req.query.id;
+        myProfile.watchlist.push(query);
+        await db.collection("users").updateOne(
+            {username:myProfile.username},
+            {
+                $set:{"watchlist":myProfile.watchlist}
+            }
+        );
+        doRender(req, res, next, mov);
+    }
+});
+
+function find (coll,i,q, res) {
     return new Promise((resolve, reject) => {
-        db.collection("movies").findOne({_id:query},function(err, result){
+        let query = {};
+        query[i] = q;
+        db.collection(coll).findOne(query,function(err, result){
             if(err){
                 res.status(500).send("Error reading database.");
                 return;
@@ -35,10 +66,20 @@ function find (query) {
         })
     });
 }
-
 //renders movie page
 async function doRender(req, res, next, myMovie){
-    res.render("pages/movie", {myMovie}); 
+    let myProfile = [];
+    let following;
+    if(req.session.loggedin){
+        following = false;
+        myProfile = await find("users","username",req.session.username, res);
+        for(var i = 0; i < myProfile.watchlist.length; i++) {
+            if (myProfile.watchlist[i].id == myMovie._id) {
+                following = true;
+            }
+        }
+    }
+    res.render("pages/movie", {myMovie,myProfile,following}); 
 }
 
 

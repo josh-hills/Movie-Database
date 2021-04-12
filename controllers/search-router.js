@@ -28,7 +28,12 @@ searchRouter.post("/", async (req, res, next) => {
     console.log("Actor Name: " + req.body.actorName);
     console.log();
     //Query for collection
-    db.collection("movies").find({Title: req.body.title, Genre: req.body.genre, Actors: req.body.actorName}).toArray( function(err, results){
+    db.collection("movies").find({
+        $or: [
+            {Title: req.body.title},
+            {Genre: req.body.genre},
+            {Actors: req.body.actorName}
+        ]}).toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
             return;

@@ -44,8 +44,5 @@ searchRouter.post("/", async (req, res, next) => {
     });
 });
 
-function searchParams(title, genre, actor, req, res, next){
-
-}
 
 module.exports = searchRouter;

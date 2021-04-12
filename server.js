@@ -8,8 +8,8 @@ let movieController = require("./controllers/movie-router");
 let profileController = require("./controllers/profile-router");
 let signinController = require("./controllers/signin-router");
 let searchController = require("./controllers/search-router");
-let userController = require("./controllers/user-router")
-
+let userController = require("./controllers/user-router");
+let contributionController = require("./controllers/contribution-router");
 // middleware
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
@@ -40,6 +40,7 @@ app.use("/signin", signinController);
 app.use("/profile", profileController);
 app.use("/search", searchController);
 app.use("/user", userController);
+app.use("/contribute", contributionController);
 
 
 //render review page

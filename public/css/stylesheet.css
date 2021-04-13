@@ -216,3 +216,7 @@ a:hover{
    padding: 5px;
    color: black;
 }
+
+#prevnextButtons{
+   text-align: right;
+}

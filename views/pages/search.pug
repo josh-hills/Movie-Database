@@ -30,8 +30,10 @@ html
                 li.movieLI 
                     a(href="/movie?id="+movie._id) #{movie.title} (#{movie.genre}) (#{movie.runtime})
                     br
-        form#nextButton(action="/search/next", method="post")
-            input.next(type="submit" name="next" placeholder="next" value="next")
-        form#prevButton(action="/search/prev", method="post")
-            input.next(type="submit" name="prev" placeholder="prev" value="prev")
+        div#prevnextButtons
+            form#prevButton(action="/search/prev", method="post")
+                input.prevButton(type="submit" name="prev" placeholder="prev" value="prev")
+                form#nextButton(action="/search/next", method="post")
+                    input.nextButton(type="submit" name="next" placeholder="next" value="next")
+
 

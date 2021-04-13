@@ -8,10 +8,12 @@ html
         include ../partials/header
     div#main
         h1 #{userProfile.username}'s Profile
-        if followsUser
-            input.unfollowBtn(type="button" name="unfollowButton" value="Unfollow User")
-        else 
-            input.afollowBtn(type="button" name="followButton" value="Follow User")
+        form#watchlist(action="/user?username="+userProfile.username method="post")
+            if (typeof(following)) == "undefined"
+            else if following
+                input.submit(type="submit" name="unfollow" value="Unfollow User")
+            else if !following
+                input.submit(type="submit" name="follow" value="Follow User")
         br
         div#watchlist
             h3 Watchlist

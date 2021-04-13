@@ -41,7 +41,7 @@ html
                     each element in myWatchlist
                         li
                             a(href="/movie?id="+element._id) #{element.title}
-        br
+            br
         if(myFollowedPeople.length)
             div#followedPeople
                 h3 Followed People
@@ -49,7 +49,7 @@ html
                     each element in myFollowedPeople
                         li
                             a(href="/person?id="+element._id) #{element.name}
-        br
+            br
         if(myFollowedUsers.length)
             div#followedUsers
                 h3 Followed Users

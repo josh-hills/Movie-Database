@@ -9,12 +9,24 @@ userRouter.get("/", async (req, res, next)=> {
     try{
         let userProfile = await find("users","username",req.query.username,res);
         let userWatchlist = [];
+        let userFollowedPeople = [];
+        let userFollowedUsers = [];
         for(let i = 0; i < userProfile.watchlist.length; i++){
             let id = userProfile.watchlist[i].id;
             let mov = await find("movies","_id",id);
             userWatchlist.push(mov);
         }
-        doRender(req, res, next, userProfile, userWatchlist);
+        for(let i = 0; i < userProfile.followedPeople.length; i++){
+            let pid = userProfile.followedPeople[i]._id;
+            let person = await find("people","_id",pid, res);
+            userFollowedPeople.push(person);
+        }
+        for(let i = 0; i < userProfile.followedUsers.length; i++){
+            let un = userProfile.followedUsers[i].username;
+            let user = await find("users","username",un, res);
+            userFollowedUsers.push(user);
+        }
+        doRender(req, res, next, userProfile, userWatchlist, userFollowedPeople, userFollowedUsers);
     } catch(error){
         res.status(404).send("404 Error");
     }
@@ -23,7 +35,25 @@ userRouter.get("/", async (req, res, next)=> {
 
 userRouter.post("/", async (req, res, next)=> {
     myProfile = await find("users","username",req.session.username, res);
-    let user = await find("users","username",req.query.username, res);
+    let userProfile = await find("users","username",req.query.username, res);
+    let userWatchlist = [];
+    let userFollowedPeople = [];
+    let userFollowedUsers = [];
+    for(let i = 0; i < userProfile.watchlist.length; i++){
+        let id = userProfile.watchlist[i].id;
+        let mov = await find("movies","_id",id);
+        userWatchlist.push(mov);
+    }
+    for(let i = 0; i < userProfile.followedPeople.length; i++){
+        let pid = userProfile.followedPeople[i]._id;
+        let person = await find("people","_id",pid, res);
+        userFollowedPeople.push(person);
+    }
+    for(let i = 0; i < userProfile.followedUsers.length; i++){
+        let un = userProfile.followedUsers[i].username;
+        let user = await find("users","username",un, res);
+        userFollowedUsers.push(user);
+    }
     if(req.body.unfollow){   
         for(var i = 0; i < myProfile.followedUsers.length; i++) {
             if (myProfile.followedUsers[i].username == req.query.username) {
@@ -36,7 +66,7 @@ userRouter.post("/", async (req, res, next)=> {
                 );
             }
         }
-        doRender(req, res, next, user, user.watchlist);
+        doRender(req, res, next, userProfile, userWatchlist, userFollowedPeople, userFollowedUsers);
     }else if(req.body.follow){
         let query = {};
         query["username"] = req.query.username;
@@ -47,7 +77,7 @@ userRouter.post("/", async (req, res, next)=> {
                 $set:{"followedUsers":myProfile.followedUsers}
             }
         );
-        doRender(req, res, next, user, user.watchlist);
+        doRender(req, res, next, userProfile, userWatchlist, userFollowedPeople, userFollowedUsers);
     }
 });
 
@@ -72,7 +102,7 @@ function find (coll,i,q, res) {
 }
 
 //renders user page
-async function doRender(req, res, next, userProfile, userWatchlist){
+async function doRender(req, res, next, userProfile, userWatchlist, userFollowedPeople, userFollowedUsers){
     let following;
     if(req.session.loggedin){
         following = false;
@@ -83,7 +113,7 @@ async function doRender(req, res, next, userProfile, userWatchlist){
             }
         }
     }
-    res.render("pages/user", {userProfile, userWatchlist, following}); 
+    res.render("pages/user", {userProfile, userWatchlist, following, userFollowedPeople, userFollowedUsers}); 
 }
 
 module.exports = userRouter;

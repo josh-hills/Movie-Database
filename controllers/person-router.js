@@ -18,6 +18,55 @@ personRouter.get("/", async (req, res, next)=> {
 	}
 });
 
+personRouter.post("/", async (req, res, next)=> {
+    myProfile = await find("users","username",req.session.username, res);
+    let person = await find("people","_id",req.query.id, res);
+    if(req.body.unfollow){   
+        for(var i = 0; i < myProfile.followedPeople.length; i++) {
+            if (myProfile.followedPeople[i].id == req.query.id) {
+                myProfile.followedPeople.splice(i, 1);
+                await db.collection("users").updateOne(
+                    {username:myProfile.username},
+                    {
+                        $set:{"followedPeople":myProfile.followedPeople}
+                    }
+                );
+            }
+        }
+        doRender(req, res, next, person);
+    }else if(req.body.follow){
+        let query = {};
+        query["_id"] = req.query.id;
+        myProfile.followedPeople.push(query);
+        await db.collection("users").updateOne(
+            {username:myProfile.username},
+            {
+                $set:{"followedPeople":myProfile.followedPeople}
+            }
+        );
+        doRender(req, res, next, person);
+    }
+});
+
+//function that queries the id for the passed query, using promises ensures that we can wait for the end of the function
+//i is var to look at (ex. _id), q is query
+function find (coll,i,q, res) {
+    return new Promise((resolve, reject) => {
+        let query = {};
+        query[i] = q;
+        db.collection(coll).findOne(query,function(err, result){
+            if(err){
+                res.status(500).send("Error reading database.");
+                return;
+            }
+            if(!result){
+                res.status(404).send("Unknown ID");
+                return;
+            }
+            resolve(result);
+        })
+    });
+}
 
 function find (coll,i,q, res) {
     return new Promise((resolve, reject) => {

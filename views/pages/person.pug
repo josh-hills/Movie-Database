@@ -7,6 +7,13 @@ html
         include ../partials/header
     div#main
         h1 #{person.name}
+        form#watchlist(action="/person?id="+person._id method="post")
+            if (typeof(following)) == "undefined"
+            else if following
+                input.submit(type="submit" name="unfollow" value="Unfollow User")
+            else if !following
+                input.submit(type="submit" name="follow" value="Follow User")
+        br
         //- div#colab
         //-     h3 Top Collaborators 
         //-     br

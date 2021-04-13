@@ -29,15 +29,6 @@ searchRouter.post("/", async (req, res, next) => {
     console.log();
     //Query for collection
 
-    db.collection("people").find({_id: "3ZqEk8Q9jjqXsplJm6dIt"}).toArray( function(err, results){
-        if(err){
-            res.status(500).send("Error Reading Database.");
-            return;
-        } 
-        console.log(results)
-        console.log(results.length + "total people")
-    })
-
     db.collection("movies").find({
         //Query for each param
         $or: [
@@ -55,6 +46,7 @@ searchRouter.post("/", async (req, res, next) => {
         res.status(200).render("pages/search",{searchResults: results.splice(0,10)});
     });
 });
+
 
 
 module.exports = searchRouter;

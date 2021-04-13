@@ -43,7 +43,7 @@ contributionRouter.post("/actor", async (req, res, next) => {
                 res.status(500).send("Error Reading Database.");
                 return;
             }
-            
+
         console.log(results)
         res.status(200).render("pages/contribute");      
         });  
@@ -58,16 +58,15 @@ contributionRouter.post("/movie", async (req, res, next) => {
         title: req.body.movieTitle,
         runtime: req.body.movieRuntime,
         year: req.body.movieRelease,
-        writer
     }
-    console.log(movie)
-    db.collection("movies").insertOne(movie);
+    console.log(newMovie)
+    db.collection("movies").insertOne(newMovie);
     db.collection("movies").find().toArray( function(err, results){
         if (err){
             res.status(500).send("Error Reading Database.");
             return;
         }
-        console.log("Movie Added: " + movie)
+        console.log("Movie Added: " + newMovie)
         console.log(results.length + " Movies in Database.")
         res.status(200).render("pages/contribute"); 
     })

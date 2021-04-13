@@ -24,10 +24,10 @@ form#addMovieButton(action="/contribute/movie", method="post")
     div#addMovie
         h5.label Title: 
             input.titleLabel(type="text" placeholder="Enter The Movie Title" name="movieTitle" required)
-        h5.label Runtime: 
-            input.runtimeLabel(type="text" placeholder="Enter The Movie Runtime" name="movieRuntime" required)
+        h5.label Runtime (min): 
+            input.runtimeLabel(type="number" placeholder="Enter The Movie Runtime" name="movieRuntime" required)
         h5.label Release Year: 
-            input.releaseLabel(type="text" placeholder="Enter The Release Year" name="movieRelease" required)        
+            input.releaseLabel(type="number" placeholder="Enter The Release Year" name="movieRelease" required)        
         h5.label Writers: 
             input.writersLabel(type="text" placeholder="Enter The Writers" name="movieWriter" required)
         h5.label Directors: 

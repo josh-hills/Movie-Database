@@ -28,5 +28,10 @@ html
         ol
             each movie in searchResults
                 li.movieLI 
-                    a(href="/movie?id="+movie._id) #{movie.title} by #{movie.director}
+                    a(href="/movie?id="+movie._id) #{movie.title} (#{movie.genre}) (#{movie.runtime})
                     br
+        form#nextButton(action="/search/next", method="post")
+            input.next(type="submit" name="next" placeholder="next" value="next")
+        form#prevButton(action="/search/prev", method="post")
+            input.next(type="submit" name="prev" placeholder="prev" value="prev")
+

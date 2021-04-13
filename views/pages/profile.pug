@@ -34,23 +34,26 @@ html
                 li 
                     input.changeCont(type="button" name="changeCont" value="Update Contributer Status")
             br
-        div#watchlist
-            h3 Watchlist
-            ul.no-bullets
-                each element in myWatchlist
-                    li
-                        a(href="/movie?id="+element._id) #{element.title}
-            br
-        div#followedPeople
-            h3 Followed People
-            ul.no-bullets
-                each element in myProfile.followedPeople
-                    li
-                        a(href="/person") #{element.name}
-            br
-        div#followedUsers
-            h3 Followed Users
-            ul.no-bullets
-                each element in myProfile.followedUsers
-                    li
-                        a(href="/otheruser") #{element.name}
+        if(myWatchlist.length)
+            div#watchlist
+                h3 Watchlist
+                ul.no-bullets
+                    each element in myWatchlist
+                        li
+                            a(href="/movie?id="+element._id) #{element.title}
+        br
+        if(myFollowedPeople.length)
+            div#followedPeople
+                h3 Followed People
+                ul.no-bullets
+                    each element in myFollowedPeople
+                        li
+                            a(href="/person?id="+element._id) #{element.name}
+        br
+        if(myFollowedUsers.length)
+            div#followedUsers
+                h3 Followed Users
+                ul.no-bullets
+                    each element in myFollowedUsers
+                        li
+                            a(href="/user?username="+element.username) #{element.username}

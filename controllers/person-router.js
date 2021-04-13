@@ -23,7 +23,7 @@ personRouter.post("/", async (req, res, next)=> {
     let person = await find("people","_id",req.query.id, res);
     if(req.body.unfollow){   
         for(var i = 0; i < myProfile.followedPeople.length; i++) {
-            if (myProfile.followedPeople[i].id == req.query.id) {
+            if (myProfile.followedPeople[i]._id == req.query.id) {
                 myProfile.followedPeople.splice(i, 1);
                 await db.collection("users").updateOne(
                     {username:myProfile.username},

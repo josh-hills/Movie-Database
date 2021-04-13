@@ -10,9 +10,9 @@ html
         form#watchlist(action="/person?id="+person._id method="post")
             if (typeof(following)) == "undefined"
             else if following
-                input.submit(type="submit" name="unfollow" value="Unfollow User")
+                input.submit(type="submit" name="unfollow" value="Unfollow")
             else if !following
-                input.submit(type="submit" name="follow" value="Follow User")
+                input.submit(type="submit" name="follow" value="Follow")
         br
         //- div#colab
         //-     h3 Top Collaborators 

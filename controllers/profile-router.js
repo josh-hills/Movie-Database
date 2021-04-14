@@ -35,9 +35,12 @@ profileRotuer.get("/", async (req, res, next)=> {
         }
     } else {
         return res.redirect("/signin");
-    }
-    
+    }  
 });
+
+profileRotuer.post("/contributor"), async (req, res, next) => {
+    console.log("Contributor Button Pressed.")
+}
 
 //function that queries the id for the passed query, using promises ensures that we can wait for the end of the function
 //i is var to look at (ex. _id), q is query

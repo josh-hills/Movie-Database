@@ -55,6 +55,7 @@ contributionRouter.post("/newPerson", async (req, res, next) => {
     });
 });
 
+//ADDING A NEW MOVIE
 contributionRouter.post("/movie", async (req, res, next) => {
     console.log("ADD MOVIE BUTTON PRESSED.")
     var newMovie = {
@@ -83,9 +84,10 @@ contributionRouter.post("/movie", async (req, res, next) => {
             //if results.length > 0, it means there exists a person with that name
             if (results.length > 0){
                 newMovie.director.push(results[0]._id); 
+                //Also add the movie _id to the person's director field
+                db.collection("people").updateOne({name: req.body.movieDirector}, {$push:{director: newMovie._id}})
             }else{
                 console.log("Person does not exists: Create Person First")
-
                 return;
             }
         });
@@ -100,7 +102,8 @@ contributionRouter.post("/movie", async (req, res, next) => {
             //if results.length > 0, it means there exists a person with that name
             if (results.length > 0){
                 newMovie.writer.push(results[0]._id); 
-                //console.log(newMovie)
+                //Also add the movie _id to the person's writer field
+                db.collection("people").updateOne({name: req.body.movieWriter}, {$push: {writer: newMovie._id}})
             }else{
                 console.log("Person does not exists: Create Person First")
                 return;
@@ -117,7 +120,8 @@ contributionRouter.post("/movie", async (req, res, next) => {
             //if results.length > 0, it means there exists a person with that name
             if (results.length > 0){
                 newMovie.actor.push(results[0]._id); 
-                console.log(newMovie)
+                //Also add the movie _id to the person's actor field
+                db.collection("people").updateOne({name: req.body.movieActor}, {$push: {actor: newMovie._id}})
             }else{
                 console.log("Person does not exists: Create Person First")
                 return;

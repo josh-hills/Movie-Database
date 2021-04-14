@@ -1,6 +1,147 @@
 # 2406-Final
 Completed by Joshua Delfin and Joshua Hills
 
+PROJECT REPORT
+1. Code and database initialization:
+    - Before testing the movie database webpage, check that all required files are downloaded:
+
+        - controllers (folder)
+            - contribution-router.js
+            - index-router.js
+            - movie-router.js
+            - person-router.js
+            - profile-router.js
+            - review-router.js
+            - search-router.js
+            - signin-router.js
+            - user-router.js
+
+        - models (folder)
+            - MovieModel.js
+            - PersonModel.js
+            - ReviewModel.js
+            - UserModel.js
+
+        - movieData (folder)
+            - movie-data-10.json
+            - movie-data-100.json
+            - movie-data-1000.json
+            - movie-data-2500.json
+
+        - views (folder)
+
+            - pages (folder)
+                - contribute.pug
+                - index.pug
+                - movie.pug
+                - person.pug
+                - profile.pug
+                - review.pug
+                - seach.pug
+                - signin.pug
+                - user.pug
+
+            - partials (folder)
+                - header.pug
+
+        - database-init.js
+        - package-lock.json
+        - package.json
+        - README.md
+        - server.js
+
+    - Once all files have been verified, install all required modules by typing "npm install" in a terminal within this directory
+
+    - To start initializing databases, ensure you are using mongodb and "use moviedb"
+        - To initializes databases, run the databse-init.js file by typing "node database-init.js" in a terminal within this directory:
+            You will see all the documents being loaded to the database in the terminal console.
+
+2. Once all files, modules, and databases required are correctly installed you may begin testing the webpage:
+    
+    - To start the webpage run the server.js file by typing "node server.js" in a terminal within this directory.
+    - Go to your preffered webpage on address http://localhost:3000 to see the page, or click on the address link in the terminal console.
+
+3. Testing the webpage:
+    - The webpage will consist of 5 main pages: Home, Profile, Signin/Up, Search and Contribute.
+
+    - The webpage will also consist of 3 sub pages: movie, person, and review.
+
+    PART 1: Main Pages
+    1. Home Page
+        - On the home page you will see base criteria of movies, people and users
+        - These will be links to their respective pages
+    2. Profile Page
+        - If you are not logged in already, the profile page will prompt you to log in or create an account
+        - Once you are logged in the profile page will display your information:
+            - username
+            - watchlist
+            - followed People (with links to their page)
+            - reviews made (with links to the review)
+    3. Signin/up Page
+        - this page will prompt to login or sign up if you are not already logged in
+    4. Search Page
+        - The search page will start out with a list of movies
+        - There is a prompt to search for movies with the requested title name, genres, and actors
+        - After searching with a criteria, the list will display movies with the same title name, genres and actors.
+    5. Contribute Page
+        - The contribution page will display 2 different prompts.
+            - Add actor:
+                - This prompt will request an actor name
+                - Upon entering a name, and clicking the button a new actor will be created if the name is unique.
+            
+            - Add Movie:
+                - This prompt will request a required movie title, runtime, release year and genre and also optional: writer, director, and actor;
+                - Once the button is pressed, the movie will be added to the database if the name is unique.
+
+
+    PART 2: SUB PAGES
+    1. Movie Page
+        - While NOT logged in:
+            - The movie page will display the movie poster, actors, directors, writers, review, and plot.
+
+        - While logged in:
+            -  The movie page will display the same information as not logged in, but will also include a prompt to create your own review, and button to add movie to your watchlist.
+            - the review will include the base review, summary of review and rating.
+            - After submitting a review, the movie will keep that review, your profile will keep the review and you will be redirected to that reviews page.
+    2. Person Page
+        - In a person page it will have a button to either follow or unfollow (if you are logged in)
+        - It will also diplay the movies that they have acted in, written or directed.
+    3. Review Page
+        - The review page will display a specific review consisting of the movie title, link to movie page, creator of review and link to their profile, review rating, summary of review and the full review.
+
+
+PROJECT CRITIQUE:
+
+1. Functionality:
+
+2. Design Critique:
+
+3. Algorithms:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROJECT CHECK IN PORTION:
 1. Before attempting to open the server insure that all required files are downloaded:
 - pdfs:
     - Object Outline.docx

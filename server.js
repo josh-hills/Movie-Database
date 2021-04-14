@@ -12,7 +12,7 @@ let userController = require("./controllers/user-router");
 let contributionController = require("./controllers/contribution-router");
 let personController = require("./controllers/person-router");
 let reviewController = require("./controllers/review-router");
-
+let indexController = require("./controllers/index-router")
 // middleware
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
@@ -46,12 +46,8 @@ app.use("/user", userController);
 app.use("/contribute", contributionController);
 app.use("/person", personController);
 app.use("/review", reviewController);
+app.use("/index", indexController);
 
-//render contribuation page
-app.get("/contribute", (req, res, next)=> { res.render("pages/contribute"); });
-
-//render search results page
-//app.get("/searchresults", (req, res, next) => {res.render("pages/searchresults"); })
 
 app.listen(port);
 console.log("Server listening at http://localhost:3000");

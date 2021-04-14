@@ -31,6 +31,7 @@ html
                 li.movieLI 
                     a(href="/movie?id="+movie._id) #{movie.title} (#{movie.genre}) (#{movie.runtime})
                     br
+
         div#prevnextButtons
             form#prevButton(action="/search/prev", method="post")
                 input.prevButton(type="submit" name="prev" placeholder="prev" value="prev")

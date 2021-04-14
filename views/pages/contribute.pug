@@ -9,29 +9,32 @@ html
     div#main
         h1 Contribution Page
 
+   
     div#addActorTitle
-        h3.addActorTitle Add an Actor:
+            h3.addActorTitle Add an Actor:
 
-form#addActorButton(action="/contribute/actor", method="post")
-    div#addActor
-        h5.label Actor Name: 
-            input.actorName(type="text" placeholder="Enter Actor's Name" name="actor" required)
-        input.addActor(type="submit" value="Add Actor")
+    form#addActorButton(action="/contribute/actor", method="post")
+        div#addActor
+            h5.label Actor Name: 
+                input.actorName(type="text" placeholder="Enter Actor's Name" name="actor" required)
+            input.addActor(type="submit" value="Add Actor")
 
-    div#addMovieTitle
-        h3 Add a Movie:
-form#addMovieButton(action="/contribute/movie", method="post")
-    div#addMovie
-        h5.label Title: 
-            input.titleLabel(type="text" placeholder="Enter The Movie Title" name="movieTitle" required)
-        h5.label Runtime (min): 
-            input.runtimeLabel(type="number" placeholder="Enter The Movie Runtime" name="movieRuntime" required)
-        h5.label Release Year: 
-            input.releaseLabel(type="number" placeholder="Enter The Release Year" name="movieRelease" required)        
-        h5.label Writers: 
-            input.writersLabel(type="text" placeholder="Enter The Writers" name="movieWriter" required)
-        h5.label Directors: 
-            input.directorsLabel(type="text" placeholder="Enter The Directors" name="movieDirector" required)    
-        h5.label Actors: 
-            input.actorsLabel(type="text" placeholder="Enter The Actors" name="movieActor" required)   
-        input.addMovie(type="submit" value="Add Movie")
+        div#addMovieTitle
+            h3 Add a Movie:
+    form#addMovieButton(action="/contribute/movie", method="post")
+        div#addMovie
+            h5.label Title: 
+                input.titleLabel(type="text" placeholder="Enter The Movie Title" name="movieTitle" required)
+            h5.label Runtime (min): 
+                input.runtimeLabel(type="number" placeholder="Enter The Movie Runtime" name="movieRuntime" required)
+            h5.label Release Year: 
+                input.releaseLabel(type="number" placeholder="Enter The Release Year" name="movieRelease" required) 
+            h5.label Genre: 
+                input.releaseLabel(type="text" placeholder="Enter The Movie Genre" name="movieGenre" required)         
+            h5.label Writers: 
+                input.writersLabel(type="text" placeholder="Enter The Writers" name="movieWriter")
+            h5.label Directors: 
+                input.directorsLabel(type="text" placeholder="Enter The Directors" name="movieDirector")    
+            h5.label Actors: 
+                input.actorsLabel(type="text" placeholder="Enter The Actors" name="movieActor")   
+            input.addMovie(type="submit" value="Add Movie")

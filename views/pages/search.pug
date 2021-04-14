@@ -24,7 +24,8 @@ html
             input.enterSearch(type="submit" name="Search" placeholder="Search" value="Search")
 
     div#movieResults
-        h1.resultsHeader Results (#{searchResults.length} results): 
+        h1.resultsHeader Results (#{searchResults.length} results):
+        h3.pageNum Page #{counterNum}
         ol
             each movie in searchResults
                 li.movieLI 
@@ -35,5 +36,6 @@ html
                 input.prevButton(type="submit" name="prev" placeholder="prev" value="prev")
                 form#nextButton(action="/search/next", method="post")
                     input.nextButton(type="submit" name="next" placeholder="next" value="next")
+            
 
 

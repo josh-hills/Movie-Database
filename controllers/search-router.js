@@ -5,11 +5,11 @@ const searchRouter = express.Router();
 const app = require('../server');
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
-let counter = 0;
 let curList = [];
+let counter;
 //Create router
 searchRouter.get("/", async (req, res, next)=> {
-    counter = 0;
+    let counter = 0;
     db.collection("movies").find().toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
@@ -19,7 +19,8 @@ searchRouter.get("/", async (req, res, next)=> {
         console.log(results.length + " Movies Listed")
         console.log("COUNTER IS AT: " + counter)
         curList=results;
-        res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
+        
+        res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counterNum: counter});
     });
 });
 
@@ -29,9 +30,9 @@ searchRouter.post("/", async (req, res, next) => {
     console.log("Title: " + req.body.title);
     console.log("Genre: " + req.body.genre);
     console.log("Actor Name: " + req.body.actorName);
-    console.log();
+    console.log(req.body);
+    counter = req.body
     //Query for collection
-
     db.collection("movies").find({
         //Query for each param
         $or: [
@@ -48,32 +49,37 @@ searchRouter.post("/", async (req, res, next) => {
         console.log(results.length + " Movies Listed")
         curList=results;
         console.log("COUNTER IS AT: " + counter)
-        res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
+        res.status(200).render("pages/search",{searchResults: results.splice(counter,10)});
     });
-
 });
 
 searchRouter.post("/next", async (req, res, next) => {
+    counter = req.body.counterNum;
     counter+=5
+    console.log("COUNTER IS AT: " + counter);
+    
+    console.log(curList.length + " in curList before splice.")
     console.log("COUNTER IS AT: " + counter)
-    let dummyList = curList.splice(counter,10);
-   
-    console.log(curList.length + " in curList")
-    console.log(dummyList.length + " in dummyList")
-    res.status(200).render("pages/search",{searchResults: dummyList});
+    let dummyList = curList.slice(counter, 10)
+    console.log(curList.length + " in curList before splice.")
+    res.status(200).render("pages/search",{searchResults: dummyList, counterNum: counter});
+    
 });
 searchRouter.post("/prev", async (req, res, next) => {
-    if(counter-5<0){
+    counter = req.body.counterNum;
+    if((counter -5) <0){
         counter=0
     }else{
     counter-=5
     }
-    let dummyList = curList.splice(counter,10);
-
+    console.log("COUNTER IS AT: " + counter);
+    
+    console.log(curList.length + " in curList before splice.")
+    let dummyList = curList.slice(counter,10)
     console.log("COUNTER IS AT: " + counter)
-    console.log(curList.length + " in curList")
-    console.log(dummyList.length + " in dummyList")
-    res.status(200).render("pages/search",{searchResults: dummyList});
+    console.log(curList.length + " in curList before splice.")
+    res.status(200).render("pages/search",{searchResults: dummyList, counterNum: counter});
+    
 
 });
 

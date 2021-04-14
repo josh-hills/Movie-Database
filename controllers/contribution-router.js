@@ -15,7 +15,7 @@ contributionRouter.get("/", async (req, res, next)=> {
             res.status(500).send("Error Reading Database.");
             return;
         }
-        console.log(results.length)
+        console.log(results.length + " Movies currently in database.")
         res.status(200).render("pages/contribute");
     })
 });

@@ -29,7 +29,7 @@ html
         ol
             each movie in searchResults
                 li.movieLI 
-                    a(href="/movie?id="+movie._id) #{movie.title} (#{movie.genre}) (#{movie.runtime})
+                    a(href="/movie?id="+movie._id) #{movie.title} (#{movie.genre}) (Runtime: #{movie.runtime})
                     br
 
         div#prevnextButtons

@@ -11,30 +11,41 @@ html
 
    
     div#addActorTitle
-            h3.addActorTitle Add an Actor:
+            h3.addActorTitle Add an Person:
 
-    form#addActorButton(action="/contribute/actor", method="post")
+    form#addActorButton(action="/contribute/newPerson", method="post")
         div#addActor
-            h5.label Actor Name: 
-                input.actorName(type="text" placeholder="Enter Actor's Name" name="actor" required)
+            h5.label Person Name: 
+                input.actorName(type="text" placeholder="Enter Person's Name" name="actor" required)
             input.addActor(type="submit" value="Add Actor")
 
         div#addMovieTitle
             h3 Add a Movie:
     form#addMovieButton(action="/contribute/movie", method="post")
         div#addMovie
-            h5.label Title: 
-                input.titleLabel(type="text" placeholder="Enter The Movie Title" name="movieTitle" required)
-            h5.label Runtime (min): 
-                input.runtimeLabel(type="number" placeholder="Enter The Movie Runtime" name="movieRuntime" required)
-            h5.label Release Year: 
-                input.releaseLabel(type="number" placeholder="Enter The Release Year" name="movieRelease" required) 
-            h5.label Genre: 
-                input.releaseLabel(type="text" placeholder="Enter The Movie Genre" name="movieGenre" required)         
-            h5.label Writers: 
+            h4.h4Label Required Fields
+            h5.reqLabel Title: 
+                input.reqTextBox(type="text" placeholder="Enter The Movie Title" name="movieTitle" required)
+            h5.reqLabel Release Year: 
+                input.reqTextBox(type="number" placeholder="Enter The Release Year" name="movieRelease" required) 
+            h5.reqLabel Rating: 
+                input.reqTextBox(type="text" placeholder="Enter Rating (ex. 'R' or 'PG')" name="movieRating" required) 
+            h5.reqLabel Runtime (min): 
+                input.reqTextBox(type="number" placeholder="Enter The Movie Runtime" name="movieRuntime" required)
+            h5.reqLabel Genre: 
+                input.reqTextBox(type="text" placeholder="Enter The Movie Genre" name="movieGenre" required)      
+            
+            h4.h4Label Extra Fields
+            h5.label Writer: 
                 input.writersLabel(type="text" placeholder="Enter The Writers" name="movieWriter")
-            h5.label Directors: 
+            h5.label Director: 
                 input.directorsLabel(type="text" placeholder="Enter The Directors" name="movieDirector")    
-            h5.label Actors: 
+            h5.label Actor: 
                 input.actorsLabel(type="text" placeholder="Enter The Actors" name="movieActor")   
+            h5.label Plot: 
+                input.actorsLabel(type="text" placeholder="Enter The Movie's Plot" name="moviePlot") 
+            h5.label Awards: 
+                input.actorsLabel(type="text" placeholder="Enter The Movie's Awards" name="movieAwards") 
+            
+            
             input.addMovie(type="submit" value="Add Movie")

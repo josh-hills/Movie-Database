@@ -85,9 +85,9 @@ PROJECT REPORT
         - After searching with a criteria, the list will display movies with the same title name, genres and actors.
     5. Contribute Page
         - The contribution page will display 2 different prompts.
-            - Add actor:
-                - This prompt will request an actor name
-                - Upon entering a name, and clicking the button a new actor will be created if the name is unique.
+            - Add person:
+                - This prompt will request a person name
+                - Upon entering a name, and clicking the button a new person will be created if the name is unique.
             
             - Add Movie:
                 - This prompt will request a required movie title, runtime, release year and genre and also optional: writer, director, and actor;

@@ -225,3 +225,18 @@ a:hover{
    color: black;
    text-align: left;
 }
+
+.reqLabel{
+   color: black;
+   text-align: right;
+}
+
+.reqTextBox{
+   place-self: left;
+}
+
+.h4Label{
+   color: black;
+   text-align: left;
+   text-decoration: underline;
+}

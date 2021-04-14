@@ -213,6 +213,7 @@ a:hover{
 
 .movieLI {
    font-size: 20px;
+   font-weight: bold;
    padding: 5px;
    color: black;
 }

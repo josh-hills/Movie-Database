@@ -7,6 +7,9 @@ let db = mongoose.connection;
 //loops through the users watchlist and adds it to the userWatchlist array, this and userProfile are passed to user.pug
 userRouter.get("/", async (req, res, next)=> {
     try{
+        if(req.query.username == req.session.username){
+            res.redirect("/profile");
+        }
         let userProfile = await find("users","username",req.query.username,res);
         let userWatchlist = [];
         let userFollowedPeople = [];
@@ -103,7 +106,12 @@ function find (coll,i,q, res) {
 
 //renders user page
 async function doRender(req, res, next, userProfile, userWatchlist, userFollowedPeople, userFollowedUsers){
+    let reviews = [];
     let following;
+    for(var i = 0; i < userProfile.reviews.length; i++) {
+        let r = await find("reviews","_id",userProfile.reviews[i],res);
+        reviews.push(r);
+    }
     if(req.session.loggedin){
         following = false;
         myProfile = await find("users","username",req.session.username, res);
@@ -113,7 +121,7 @@ async function doRender(req, res, next, userProfile, userWatchlist, userFollowed
             }
         }
     }
-    res.render("pages/user", {userProfile, userWatchlist, following, userFollowedPeople, userFollowedUsers}); 
+    res.render("pages/user", {userProfile, userWatchlist, following, userFollowedPeople, userFollowedUsers, reviews}); 
 }
 
 module.exports = userRouter;

@@ -72,6 +72,7 @@ async function doRender(req, res, next, myMovie){
     let actors = [];
     let directors = [];
     let writers = [];
+    let reviews = [];
     let following;
     let loggedin = req.session.loggedin;
     if(loggedin){
@@ -87,6 +88,10 @@ async function doRender(req, res, next, myMovie){
         let d = await find("people","_id",myMovie.director[i],res);
         directors.push(d);
     }
+    for(var i = 0; i < myMovie.reviews.length; i++) {
+        let r = await find("reviews","_id",myMovie.reviews[i],res);
+        reviews.push(r);
+    }
     for(var i = 0; i < myMovie.actor.length; i++) {
         let d = await find("people","_id",myMovie.actor[i],res);
         actors.push(d);
@@ -95,7 +100,7 @@ async function doRender(req, res, next, myMovie){
         let d = await find("people","_id",myMovie.writer[i],res);
         writers.push(d);
     }
-    res.render("pages/movie", {myMovie,myProfile,following,directors,actors,writers, loggedin}); 
+    res.render("pages/movie", {myMovie,myProfile,following,directors,actors,writers,reviews,loggedin}); 
 }
 
 

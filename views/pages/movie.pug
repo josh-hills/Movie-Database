@@ -39,12 +39,12 @@ html
                     li
                         a(href="/person?id="+element._id) #{element.name}
             br
-        //- div#review
-        //-     h3 Reviews
-        //-     ul.no-bullets
-        //-         each element in myMovie.Review
-        //-             li
-        //-                 a(href="/review") #{element.rating}/10
+        div#review
+            h3 Reviews
+            ul.no-bullets
+                each element in reviews
+                    li
+                        a(href="/review?id="+element._id) #{element.rating}/10
         br
         br
         br

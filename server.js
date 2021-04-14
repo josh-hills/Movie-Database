@@ -47,14 +47,6 @@ app.use("/contribute", contributionController);
 app.use("/person", personController);
 app.use("/review", reviewController);
 
-
-//render review page
-app.get("/review", (req, res, next)=> {
-    let myProfile = require("./me.json");
-    let myReview = myProfile.watchlist[3].Review[0];
-    res.render("pages/review", {myReview}); 
-});
-
 //render contribuation page
 app.get("/contribute", (req, res, next)=> { res.render("pages/contribute"); });
 

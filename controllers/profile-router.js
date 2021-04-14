@@ -27,6 +27,7 @@ profileRotuer.get("/", async (req, res, next)=> {
                 let user = await find("users","username",un, res);
                 myFollowedUsers.push(user);
             }
+            
     
             doRender(req, res, next, myProfile, myWatchlist, myFollowedUsers, myFollowedPeople);
         } catch(error){
@@ -60,7 +61,12 @@ function find (coll,i,q, res) {
 
 //renders profile page
 async function doRender(req, res, next, myProfile, myWatchlist, myFollowedUsers, myFollowedPeople){
-    res.render("pages/profile", {myProfile, myWatchlist, myFollowedPeople, myFollowedUsers}); 
+    let reviews = [];
+    for(var i = 0; i < myProfile.reviews.length; i++) {
+        let r = await find("reviews","_id",myProfile.reviews[i],res);
+        reviews.push(r);
+    }
+    res.render("pages/profile", {myProfile, myWatchlist, myFollowedPeople, myFollowedUsers, reviews}); 
 }
 
 module.exports = profileRotuer;

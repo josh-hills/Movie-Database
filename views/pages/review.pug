@@ -2,13 +2,18 @@ html
     head
         style. 
             include stylesheet.css
-    title #{myReview.rating}/10 Review
+    title #{myMovie.title} Review
     body 
         include ../partials/header
-    h1 Review Rating: #{myReview.rating}/10
+    h1 #{myMovie.title} Review
+    a(href="movie?id="+myMovie._id) View movie page
+    br
+    h3 Made by:
+    a(href="/user?username="+myUser.username)  #{myUser.username}
+    h2 Review Rating: #{myReview.rating}/10
     h3 Summary: 
     p1 #{myReview.summary}
     br
     br
     h3 Full Review: 
-    p1 #{myReview.full}
+    p1 #{myReview.fullReview}

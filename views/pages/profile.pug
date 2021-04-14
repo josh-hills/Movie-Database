@@ -57,3 +57,10 @@ html
                     each element in myFollowedUsers
                         li
                             a(href="/user?username="+element.username) #{element.username}
+        if(reviews.length)
+            div#review
+                h3 Reviews
+                ul.no-bullets
+                    each element in reviews
+                        li
+                            a(href="/review?id="+element._id) #{element.rating}/10

@@ -5,6 +5,20 @@ const reviewRouter = express.Router();
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
 
+reviewRouter.get("/", async (req, res, next)=>{
+    let id;
+    try{
+        let un = req.session.username;
+        id = req.query.id;
+        let myReview = await find("reviews", "_id", id, res);
+        let u = await find("users", "username", myReview.user, res);
+        let m = await find("movies", "_id", myReview.movie, res);
+        doRender(req, res, next, myReview, m , u);
+    } catch(e){
+        res.status(404).send("404 Error");
+    }
+});
+
 reviewRouter.post("/", async (req, res, next)=> {
     try{
         console.log(req.body);
@@ -39,7 +53,7 @@ reviewRouter.post("/", async (req, res, next)=> {
                         $set:{"reviews":movReviewArr}
                     }
                 );
-                res.render("/movie?id="+movid);
+                doRender(req, res, next, r, m ,u);
             }
         })
     } catch(err) {
@@ -65,6 +79,10 @@ function find (coll,i,q, res) {
             resolve(result);
         })
     });
+}
+
+async function doRender(req,res,next,myReview, myMovie, myUser){
+    res.render("pages/review", {myReview, myMovie, myUser});
 }
 
 module.exports = reviewRouter;

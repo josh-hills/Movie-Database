@@ -68,54 +68,62 @@ contributionRouter.post("/movie", async (req, res, next) => {
         writer: [],
         actor: [],
         plot: req.body.moviePlot,
-        awards: req.body.movieAwards
+        awards: req.body.movieAwards,
+        poster: "",
+        reviews: []
     }   
     //Checking if people exist
     //DIRECTOR CHECK
-    await db.collection("people").find({name: req.body.movieDirector}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
-        if (err){
-            res.status(500).send("Error Reading Database.");
-            return;
-        }
-        //if results.length > 0, it means there exists a person with that name
-        if (results.length > 0){
-            newMovie.director.push(results[0]._id); 
-        }else{
-            console.log("Person does not exists: Create Person First")
+    if (req.body.movieDirector != ""){
+        await db.collection("people").find({name: req.body.movieDirector}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
+            if (err){
+                res.status(500).send("Error Reading Database.");
+                return;
+            }
+            //if results.length > 0, it means there exists a person with that name
+            if (results.length > 0){
+                newMovie.director.push(results[0]._id); 
+            }else{
+                console.log("Person does not exists: Create Person First")
 
-            return;
-        }
-    });
+                return;
+            }
+        });
+    }
     //WRITER CHECK
-    await db.collection("people").find({name: req.body.movieWriter}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
-        if (err){
-            res.status(500).send("Error Reading Database.");
-            return;
-        }
-        //if results.length > 0, it means there exists a person with that name
-        if (results.length > 0){
-            newMovie.writer.push(results[0]._id); 
-            //console.log(newMovie)
-        }else{
-            console.log("Person does not exists: Create Person First")
-            return;
-        }
-    });
+    if (req.body.movieWriter != ""){
+        await db.collection("people").find({name: req.body.movieWriter}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
+            if (err){
+                res.status(500).send("Error Reading Database.");
+                return;
+            }
+            //if results.length > 0, it means there exists a person with that name
+            if (results.length > 0){
+                newMovie.writer.push(results[0]._id); 
+                //console.log(newMovie)
+            }else{
+                console.log("Person does not exists: Create Person First")
+                return;
+            }
+        });
+    }
     //ACTOR CHECK
-    await db.collection("people").find({name: req.body.movieActor}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
-        if (err){
-            res.status(500).send("Error Reading Database.");
-            return;
-        }
-        //if results.length > 0, it means there exists a person with that name
-        if (results.length > 0){
-            newMovie.actor.push(results[0]._id); 
-            console.log(newMovie)
-        }else{
-            console.log("Person does not exists: Create Person First")
-            return;
-        }
-    });
+    if (req.body.movieActor != ""){
+        await db.collection("people").find({name: req.body.movieActor}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
+            if (err){
+                res.status(500).send("Error Reading Database.");
+                return;
+            }
+            //if results.length > 0, it means there exists a person with that name
+            if (results.length > 0){
+                newMovie.actor.push(results[0]._id); 
+                console.log(newMovie)
+            }else{
+                console.log("Person does not exists: Create Person First")
+                return;
+            }
+        });
+    }
 
 /*
     if (newMovie.plot == undefined){
@@ -158,4 +166,6 @@ contributionRouter.post("/movie", async (req, res, next) => {
 "Poster":"https://m.media-amazon.com/images/M/MV5BZjY1NDZjYjYtZjRmMi00M2NhLTllMDktZDg2ZTRmNDA4Njc5XkEyXkFqcGdeQXVyNjQ4NTg2ODY@._V1_SX300.jpg"
 }]
 */
+
+
 module.exports = contributionRouter;

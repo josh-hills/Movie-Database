@@ -91,6 +91,7 @@ PROJECT REPORT
             
             - Add Movie:
                 - This prompt will request a required movie title, runtime, release year and genre and also optional: writer, director, and actor;
+                - Please note that if the person (director, writer, or actor) does not exist, you must first create their person document by using the "add person" prompt that the top of the page.
                 - Once the button is pressed, the movie will be added to the database if the name is unique.
 
 

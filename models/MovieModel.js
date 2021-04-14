@@ -10,6 +10,7 @@ let movieSchema = Schema({
     rated: String,
     released: String,
     runtime: String,
+    reviews: [],
     genre: [String],
     director: [{type: String}],
     writer: [{type: String}],

@@ -11,6 +11,8 @@ let searchController = require("./controllers/search-router");
 let userController = require("./controllers/user-router");
 let contributionController = require("./controllers/contribution-router");
 let personController = require("./controllers/person-router");
+let reviewController = require("./controllers/review-router");
+
 // middleware
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
@@ -43,6 +45,7 @@ app.use("/search", searchController);
 app.use("/user", userController);
 app.use("/contribute", contributionController);
 app.use("/person", personController);
+app.use("/review", reviewController);
 
 
 //render review page

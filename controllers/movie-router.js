@@ -73,7 +73,8 @@ async function doRender(req, res, next, myMovie){
     let directors = [];
     let writers = [];
     let following;
-    if(req.session.loggedin){
+    let loggedin = req.session.loggedin;
+    if(loggedin){
         following = false;
         myProfile = await find("users","username",req.session.username, res);
         for(var i = 0; i < myProfile.watchlist.length; i++) {
@@ -94,7 +95,7 @@ async function doRender(req, res, next, myMovie){
         let d = await find("people","_id",myMovie.writer[i],res);
         writers.push(d);
     }
-    res.render("pages/movie", {myMovie,myProfile,following,directors,actors,writers}); 
+    res.render("pages/movie", {myMovie,myProfile,following,directors,actors,writers, loggedin}); 
 }
 
 

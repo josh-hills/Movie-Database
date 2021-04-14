@@ -5,6 +5,7 @@ let userSchema = Schema({
     username: String,
     password: String,
     contributer: Boolean,
+    reviews:[],
     followedPeople: [],
     followedUsers: [],
     watchlist: []

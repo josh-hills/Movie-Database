@@ -78,7 +78,7 @@ function find (coll,i,q, res) {
                 return;
             }
             if(!result){
-                res.status(404).send("Unknown ID 2");
+                res.status(404).send("Unknown ID");
                 return;
             }
             resolve(result);

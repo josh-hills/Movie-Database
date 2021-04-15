@@ -68,8 +68,8 @@ PROJECT REPORT
 
     PART 1: Main Pages
     1. Home Page
-        - On the home page you will see base criteria of movies, people and users
-        - These will be links to their respective pages
+        - This page is the main area which provides links to other parts of the website.
+        - Will have links to sign in, profile, and search pages.
     2. Profile Page
         - If you are not logged in already, the profile page will prompt you to log in or create an account
         - Once you are logged in the profile page will display your information:
@@ -124,6 +124,13 @@ PROJECT CRITIQUE:
         - The algorithm takes the first person in your followed list and adds the movies they have contributed to onto the recommendation list.
         - We then take the next person's contribution of movies and so on until we have gone through all our following list.
         - Once we have our recommendation list we send the top 5 to display and link to those movies.
+
+    - Similar Movies:
+        - In each movie page, there will be a list of 5 similar movies.
+        - The criteria for similar movies is based on the current viewed movie's genres.
+        - For example, if the movie is a thriller, 5 movies with the thriller genre will be listed.
+        - If multiple genres exist for the one movie, then the list will take the top 5 of the first genre unless there are less than 5
+        - This is done by taking only up to 5 movies for the similar movie list.
         
 
 

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const profileRotuer = express.Router();
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
-
+var bodyParser = require('body-parser')
 //loops through the users watchlist and adds it to the myWatchlist array, this and myProfile are passed to profile.pug
 profileRotuer.get("/", async (req, res, next)=> {
     if(req.session.loggedin){
@@ -38,7 +38,7 @@ profileRotuer.get("/", async (req, res, next)=> {
     }  
 });
 
-profileRotuer.post("/contributor"), async (req, res, next) => {
+profileRotuer.post("/"), async (req, res, next) => {
     console.log("Contributor Button Pressed.")
 }
 

@@ -241,3 +241,22 @@ a:hover{
    text-align: left;
    text-decoration: underline;
 }
+
+#indexDiv{
+   width: 300px; 
+   height: 250px; 
+   padding: 8px; 
+   border: 10px solid black; 
+   margin: 20px; 
+   background: darkgrey; 
+   text-align: right;
+}
+
+.pageList{
+   text-align: center;
+}
+
+.pageListHeader{
+   text-align: center;
+   text-decoration: underline;
+}

@@ -14,6 +14,7 @@ let personController = require("./controllers/person-router");
 let reviewController = require("./controllers/review-router");
 let indexController = require("./controllers/index-router")
 // middleware
+
 app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
 app.use(session({
@@ -29,6 +30,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "pug");
 
 //render homepage
+
 app.get("/", (req, res, next)=> { 
     if(!req.session.loggedin){
         req.session.loggedin=false;

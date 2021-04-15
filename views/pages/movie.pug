@@ -15,7 +15,7 @@ html
             else if !following
                 input.submit(type="submit" name="follow" value="Add to your watchlist")
         br
-        img(src = myMovie.poster align = "left") 
+        img.poster(src = myMovie.poster align = "left") 
         br
         br
         div#actors
@@ -24,7 +24,7 @@ html
                 each element in actors
                     li
                         a(href="/person?id="+element._id) #{element.name}
-            br
+                br
         div#directors
             h3 Directors
             ul.no-bullets
@@ -45,15 +45,20 @@ html
                 each element in reviews
                     li
                         a(href="/review?id="+element._id) #{element.rating}/10
+            br
+        div#similarMovies
+            h3 Similar Movies (Based on genre)
+                ul.no-bullets
+                    each movie in simMovies
+                        li 
+                            a(href="/movie?id="+movie._id) #{movie.title} (#{movie.genre})
         br
         br
         br
         br
+        h3 Movie Plot
         br
-        br
-        br
-        br
-        p1 #{myMovie.plot}
+        p1.plot #{myMovie.plot}
         br
         br
         br

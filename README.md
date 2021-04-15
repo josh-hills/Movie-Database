@@ -118,6 +118,13 @@ PROJECT CRITIQUE:
 2. Design Critique:
 
 3. Algorithms:
+    - Recommendation: 
+        - The recommended list is based on the people you follow:
+        - It consists of up to 5 movies that users you follow have contributed to. (acted, directed, written)
+        - The algorithm takes the first person in your followed list and adds the movies they have contributed to onto the recommendation list.
+        - We then take the next person's contribution of movies and so on until we have gone through all our following list.
+        - Once we have our recommendation list we send the top 5 to display and link to those movies.
+        
 
 
 

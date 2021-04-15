@@ -60,3 +60,13 @@ html
                     each element in reviews
                         li
                             a(href="/review?id="+element._id) #{element.rating}/10
+
+        if(myRecommendations.length)
+            div#recommendedList
+                h3 Recommended Movies (Based on people you follow)
+                    ul.no-bullets
+                        each movie in myRecommendations 
+                            li 
+                                a(href="/movie?id="+movie._id) #{movie.title}
+
+        

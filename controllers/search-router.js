@@ -10,7 +10,6 @@ let counter;
 
 //Create router
 searchRouter.get("/", async (req, res, next)=> {
-    let counter = 0;
     
     db.collection("movies").find().toArray( function(err, results){
         if(err){
@@ -19,7 +18,6 @@ searchRouter.get("/", async (req, res, next)=> {
         }
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
-        console.log("COUNTER IS AT: " + counter)
         curList=results;
         
         res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counterNum: counter});
@@ -69,21 +67,14 @@ searchRouter.post("/", async (req, res, next) => {
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
         curList=results;
-        console.log("COUNTER IS AT: " + counter)
-        res.status(200).render("pages/search",{searchResults: results.splice(counter,10)});
+        res.status(200).render("pages/search",{searchResults: results.splice(0,10)});
     });
 });
 
 searchRouter.post("/next", async (req, res, next) => {
     counter = req.body.counterNum;
     counter+=5
-    console.log("COUNTER IS AT: " + counter);
-    
-    console.log(curList.length + " in curList before splice.")
-    console.log("COUNTER IS AT: " + counter)
-    let dummyList = curList.slice(counter, 10)
-    console.log(curList.length + " in curList before splice.")
-    res.status(200).render("pages/search",{searchResults: dummyList, counterNum: counter});
+    res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
     
 });
 searchRouter.post("/prev", async (req, res, next) => {
@@ -93,15 +84,7 @@ searchRouter.post("/prev", async (req, res, next) => {
     }else{
     counter-=5
     }
-    console.log("COUNTER IS AT: " + counter);
-    
-    console.log(curList.length + " in curList before splice.")
-    let dummyList = curList.slice(counter,10)
-    console.log("COUNTER IS AT: " + counter)
-    console.log(curList.length + " in curList before splice.")
-    res.status(200).render("pages/search",{searchResults: dummyList, counterNum: counter});
-    
-
+    res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
 });
 
 module.exports = searchRouter;

@@ -257,6 +257,18 @@ a:hover{
 }
 
 .pageListHeader{
+   color: black;
    text-align: center;
    text-decoration: underline;
+}
+
+
+
+.poster{
+   padding: 50px;
+}
+
+.plot{
+   text-align: left;
+   padding: 20px;
 }

@@ -9,10 +9,39 @@ let db = mongoose.connection;
 //if you wanna test this, go grab any valid id and paste it for the id param in find
 movieRouter.get("/", async (req, res, next)=> {
     let id;
+    let simMovies = [];
 	try{
 		id = req.query.id;
         let mov = await find("movies","_id",id,res);
-        doRender(req, res, next, mov);
+
+        //Get This movie's genre
+        let curMovGenre = mov.genre;
+        
+        //for each genre
+        for(let i = 0; i < curMovGenre.length; i++){
+
+            db.collection("movies").find(
+                {
+                    $and:
+                        [{genre:curMovGenre[i]},
+                        {title: {$ne: mov.title}}]
+                }).toArray( function(err, results){
+                    if (err){
+                        res.status(500).send("Error Reading Database for similar movies.");
+                        return;
+                    }
+                    for(let j = 0; j < results.length; j++){
+                        simMovies.push(results[j])
+                        if(simMovies.length > 5){
+                            simMovies.shift();
+                        }
+                    }
+                });
+        }
+        
+        simMovies.slice(0, 5);
+       
+        doRender(req, res, next, mov, simMovies);
 	}catch{
 		res.status(404).send("Unknown ID");
 		return;
@@ -22,6 +51,31 @@ movieRouter.get("/", async (req, res, next)=> {
 movieRouter.post("/", async (req, res, next)=> {
     myProfile = await find("users","username",req.session.username, res);
     let mov = await find("movies","_id",req.query.id,res);
+    let curMovGenre = mov.genre;
+    let simMovies = [];
+    for(let i = 0; i < curMovGenre.length; i++){
+
+        db.collection("movies").find(
+            {
+                $and:
+                    [{genre:curMovGenre[i]},
+                    {title: {$ne: mov.title}}]
+            }).toArray( function(err, results){
+                if (err){
+                    res.status(500).send("Error Reading Database for similar movies.");
+                    return;
+                }
+                for(let j = 0; j < results.length; j++){
+                    simMovies.push(results[j])
+                    if(simMovies.length > 5){
+                        simMovies.shift();
+                    }
+                }
+            });
+    }
+    
+    simMovies.slice(0,5);
+
     if(req.body.unfollow){   
         for(var i = 0; i < myProfile.watchlist.length; i++) {
             if (myProfile.watchlist[i].id == req.query.id) {
@@ -34,7 +88,9 @@ movieRouter.post("/", async (req, res, next)=> {
                 );
             }
         }
-        doRender(req, res, next, mov);
+    
+
+        doRender(req, res, next, mov, simMovies);
     }else if(req.body.follow){
         let query = {};
         query["id"] = req.query.id;
@@ -45,7 +101,7 @@ movieRouter.post("/", async (req, res, next)=> {
                 $set:{"watchlist":myProfile.watchlist}
             }
         );
-        doRender(req, res, next, mov);
+        doRender(req, res, next, mov, simMovies);
     }
 });
 
@@ -66,8 +122,9 @@ function find (coll,i,q, res) {
         })
     });
 }
+
 //renders movie page
-async function doRender(req, res, next, myMovie){
+async function doRender(req, res, next, myMovie, simMovies){
     let myProfile = [];
     let actors = [];
     let directors = [];
@@ -75,6 +132,7 @@ async function doRender(req, res, next, myMovie){
     let reviews = [];
     let following;
     let loggedin = req.session.loggedin;
+
     if(loggedin){
         following = false;
         myProfile = await find("users","username",req.session.username, res);
@@ -100,7 +158,8 @@ async function doRender(req, res, next, myMovie){
         let d = await find("people","_id",myMovie.writer[i],res);
         writers.push(d);
     }
-    res.render("pages/movie", {myMovie,myProfile,following,directors,actors,writers,reviews,loggedin}); 
+
+    res.render("pages/movie", {myMovie,myProfile,following,directors,actors,writers,reviews,loggedin, simMovies}); 
 }
 
 

@@ -30,7 +30,7 @@ html
                 li.movieLI 
                     a(href="/movie?id="+movie._id) #{movie.title} (#{movie.genre}) (Runtime: #{movie.runtime})
                     br
-        h3.label Page #{counter/5}
+        h3.label Page #{(counter/5)+1}
         form#prevnextButtons(action="/search/prev", method="post")
             input.nextButton(type="submit" name="prevButton" placeholder="prevButton" value="prev")
         form#prevnextButtons(action="/search/next", method="post")

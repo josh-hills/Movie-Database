@@ -5,7 +5,9 @@ const searchRouter = express.Router();
 const app = require('../server');
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
-let counter;
+let counter = 0;
+let curSearch = [];
+
 //Create router
 searchRouter.get("/", async (req, res, next)=> {
     db.collection("movies").find().toArray( function(err, results){
@@ -13,10 +15,10 @@ searchRouter.get("/", async (req, res, next)=> {
             res.status(500).send("Error Reading Database.");
             return;
         }
-        counter = 0;
+        //counter = 0;
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
-        res.status(200).render("pages/search",{searchResults: results.splice(0,10), counter});
+        res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counter});
     });
 });
 
@@ -28,8 +30,6 @@ searchRouter.post("/", async (req, res, next) => {
     {
         actor = await find("people","name",req.body.actorName, res)
     }
-    //let actor = await find("people","name",req.body.actorName, res)
-    //console.log("ACTOR _ID: " + actor._id)
     //Query for collection
     db.collection("movies").find({
         //Query for each param
@@ -43,7 +43,7 @@ searchRouter.post("/", async (req, res, next) => {
             return;
         }
         //Results is the arraylist of movies
-        counter = 0;
+        //counter = 0;
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
         res.status(200).render("pages/search",{searchResults: results.splice(0,10), counter});
@@ -52,13 +52,18 @@ searchRouter.post("/", async (req, res, next) => {
 
 
 searchRouter.post("/next", async (req, res, next) => {
-    counter = req.body.counter;
-    counter += 5;
     
+    console.log("Next Button Pressed.")
+    counter += 5;
     res.redirect("/search");
 });
 searchRouter.post("/prev", async (req, res, next) => {
-
+    console.log("Previous Button Pressed")
+    if ((counter-5) < 0){
+        counter = 0;
+    }else{
+        counter -= 5;
+    }
     res.redirect("/search");
 });
 

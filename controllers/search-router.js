@@ -5,32 +5,24 @@ const searchRouter = express.Router();
 const app = require('../server');
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
-
+let counter;
 //Create router
 searchRouter.get("/", async (req, res, next)=> {
-    
     db.collection("movies").find().toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
             return;
         }
+        counter = 0;
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
-       
-        
-        res.status(200).render("pages/search",{searchResults: results.splice(0,10)});
+        res.status(200).render("pages/search",{searchResults: results.splice(0,10), counter});
     });
-    
-   
 });
 
 //When the search button is clicked
 searchRouter.post("/", async (req, res, next) => {
     console.log("Search Button Pressed");
-    console.log();
-    console.log("Title: " + req.body.title);
-    console.log("Genre: " + req.body.genre);
-    console.log("Actor Name: " + req.body.actorName);
     let actor = await find("people","name",req.body.actorName, res)
     //Query for collection
     db.collection("movies").find({
@@ -45,29 +37,25 @@ searchRouter.post("/", async (req, res, next) => {
             return;
         }
         //Results is the arraylist of movies
+        counter = 0;
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
-        res.status(200).render("pages/search",{searchResults: results.splice(0,10)});
+        res.status(200).render("pages/search",{searchResults: results.splice(0,10), counter});
     });
 });
 
-/*
+
 searchRouter.post("/next", async (req, res, next) => {
-    counter = req.body.counterNum;
-    counter+=5
-    res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
+    counter = req.body.counter;
+    counter += 5;
     
+    res.redirect("/search");
 });
 searchRouter.post("/prev", async (req, res, next) => {
-    counter = req.body.counterNum;
-    if((counter -5) <0){
-        counter=0
-    }else{
-    counter-=5
-    }
-    res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
+
+    res.redirect("/search");
 });
-*/
+
 
 function find (coll,i,q, res) {
     return new Promise((resolve, reject) => {

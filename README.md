@@ -74,12 +74,15 @@ PROJECT REPORT
             - followed People (with links to their page)
             - reviews made (with links to the review)
         - When on the profile page, if your account is declared as a contributor account, a link will appear to reach the contributor page
+        - Currently notifications are in the console for when a new movie is created and a person the current profile follows has contributed to that movie.
     3. Signin/up Page
         - this page will prompt to login or sign up if you are not already logged in
+
     4. Search Page
         - The search page will start out with a list of movies
         - There is a prompt to search for movies with the requested title name, genres, and actors
         - After searching with a criteria, the list will display movies with the same title name, genres and actors.
+
     5. Contribute Page
         - The contribution page will display 2 different prompts.
             - Add person:

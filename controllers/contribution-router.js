@@ -4,14 +4,15 @@ const mongoose = require("mongoose");
 const contributionRouter = express.Router();
 const { nanoid } = require('nanoid');
 const app = require('../server');
+
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
 
 
 //Create router
 contributionRouter.get("/", async (req, res, next)=> {
-    
-    
+    let myProfile = await find("users","username",req.session.username);
+    console.log(myProfile.followedPeople)
     db.collection("movies").find().toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
@@ -25,7 +26,6 @@ contributionRouter.get("/", async (req, res, next)=> {
 //CREATING A NEW PERSON
 
 contributionRouter.post("/newPerson", async (req, res, next) => {
-    let myProfile = await find("users","username",req.session.username);
     console.log("ADD ACTOR BUTTON PRESSED.")
     db.collection("people").find({name: req.body.actor}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
         if(err){
@@ -60,6 +60,8 @@ contributionRouter.post("/newPerson", async (req, res, next) => {
 
 //ADDING A NEW MOVIE
 contributionRouter.post("/movie", async (req, res, next) => {
+    let myProfile= await find("users","username",req.session.username);
+
     console.log("ADD MOVIE BUTTON PRESSED.")
     var newMovie = {
         _id: nanoid(),
@@ -89,6 +91,13 @@ contributionRouter.post("/movie", async (req, res, next) => {
                 newMovie.director.push(results[0]._id); 
                 //Also add the movie _id to the person's director field
                 db.collection("people").updateOne({name: req.body.movieDirector}, {$push:{director: newMovie._id}})
+
+                //NOTIFICATION HANDLING
+                for(let i = 0; i < myProfile.followedPeople.length; i++){
+                    if(myProfile.followedPeople[i] = (results[0]._id)){
+                        console.log("A PERSON YOU FOLLOW HAS CONTRIBUTED TO A NEW MOVIE")
+                    }
+                }
             }else{
                 console.log("Person does not exists: Create Person First")
                 return;
@@ -107,6 +116,13 @@ contributionRouter.post("/movie", async (req, res, next) => {
                 newMovie.writer.push(results[0]._id); 
                 //Also add the movie _id to the person's writer field
                 db.collection("people").updateOne({name: req.body.movieWriter}, {$push: {writer: newMovie._id}})
+
+                //NOTIFICATION HANDLING
+                for(let i = 0; i < myProfile.followedPeople.length; i++){
+                    if(myProfile.followedPeople[i] = (results[0]._id)){
+                        console.log("A PERSON YOU FOLLOW HAS CONTRIBUTED TO A NEW MOVIE")
+                    }
+                }
             }else{
                 console.log("Person does not exists: Create Person First")
                 return;
@@ -125,6 +141,13 @@ contributionRouter.post("/movie", async (req, res, next) => {
                 newMovie.actor.push(results[0]._id); 
                 //Also add the movie _id to the person's actor field
                 db.collection("people").updateOne({name: req.body.movieActor}, {$push: {actor: newMovie._id}})
+
+                //NOTIFICATION HANDLING
+                for(let i = 0; i < myProfile.followedPeople.length; i++){
+                    if(myProfile.followedPeople[i] = (results[0]._id)){
+                        console.log("A PERSON YOU FOLLOW HAS CONTRIBUTED TO A NEW MOVIE")
+                    }
+                }
             }else{
                 console.log("Person does not exists: Create Person First")
                 return;

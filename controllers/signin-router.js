@@ -27,7 +27,7 @@ function searchUser(un, pass, req, res, next) {
                 reject("/signin");
             }else if(!result){
                 //create an account with given credentials
-                let u = new User({username:un, password:pass, followedPeople:[], followedUsers:[],watchlist:[]});
+                let u = new User({username:un, password:pass, followedPeople:[], followedUsers:[],watchlist:[], contributer: false});
                 u.save(function(err, callback){
                     if(err){
                         console.log(err.message);

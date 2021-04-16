@@ -77,6 +77,7 @@ PROJECT REPORT
             - watchlist
             - followed People (with links to their page)
             - reviews made (with links to the review)
+        - When on the profile page, if your account is declared as a contributor account, a link will appear to reach the contributor page
     3. Signin/up Page
         - this page will prompt to login or sign up if you are not already logged in
     4. Search Page

@@ -75,7 +75,7 @@ profileRotuer.get("/", async (req, res, next)=> {
                 let cur = (myRecommendations.length-5)
                 myRecommendations.splice(0, cur)
             }
-
+            console.log(myProfile.contributer);
             doRender(req, res, next, myProfile, myWatchlist, myFollowedUsers, myFollowedPeople, myRecommendations);
         } catch(error){
             res.status(404).send("404 Error");
@@ -85,10 +85,22 @@ profileRotuer.get("/", async (req, res, next)=> {
     }  
 });
 
-profileRotuer.post("/"), async (req, res, next) => {
+profileRotuer.post("/", async (req, res, next) => {
+    
     console.log("Contributor Button Pressed.")
-    doRender(req, res, next, myProfile, myWatchlist, myFollowedUsers, myFollowedPeople, myRecommendations);
-}
+    let myProfile = await find("users","username",req.session.username);
+    console.log(myProfile);
+    let contStatus = req.body.yesNoDD;
+    console.log("----------------------")
+    if (contStatus == "Yes"){
+        db.collection("users").update({_id: myProfile._id},{$set: {contributer: true}})
+    }
+    else{
+        db.collection("users").update({_id: myProfile._id},{$set: {contributer: false}})
+    }
+    console.log(myProfile)
+    res.redirect("/profile")
+});
 
 //function that queries the id for the passed query, using promises ensures that we can wait for the end of the function
 //i is var to look at (ex. _id), q is query

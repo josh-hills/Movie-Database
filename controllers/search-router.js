@@ -18,7 +18,7 @@ searchRouter.get("/", async (req, res, next)=> {
         console.log(results.length + " Movies Listed")
        
         
-        res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counterNum: counter});
+        res.status(200).render("pages/search",{searchResults: results.splice(0,10)});
     });
     
    
@@ -32,7 +32,7 @@ searchRouter.post("/", async (req, res, next) => {
     console.log("Genre: " + req.body.genre);
     console.log("Actor Name: " + req.body.actorName);
     console.log(req.body);
-    counter = req.body
+    
     //Query for collection
     db.collection("movies").find({
         //Query for each param
@@ -52,6 +52,7 @@ searchRouter.post("/", async (req, res, next) => {
     });
 });
 
+/*
 searchRouter.post("/next", async (req, res, next) => {
     counter = req.body.counterNum;
     counter+=5
@@ -67,5 +68,5 @@ searchRouter.post("/prev", async (req, res, next) => {
     }
     res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
 });
-
+*/
 module.exports = searchRouter;

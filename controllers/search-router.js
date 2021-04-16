@@ -25,6 +25,7 @@ searchRouter.get("/", async (req, res, next)=> {
 //When the search button is clicked
 searchRouter.post("/", async (req, res, next) => {
     console.log("Search Button Pressed");
+    counter = 0;
     let actor = [];
     if (req.body.actorName != "")
     {

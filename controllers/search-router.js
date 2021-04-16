@@ -7,15 +7,21 @@ mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
 let counter = 0;
 let curSearch = [];
+//GET LOCAL PARAMETERS
+let curTitle = "";
+let curGenre = "";
+let curActor = "";
 
 //Create router
 searchRouter.get("/", async (req, res, next)=> {
+    console.log("Local Title: " + curTitle);
+    console.log("Local Genre: " + curGenre);
+    console.log("Local Actor: " + curActor);
     db.collection("movies").find().toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
             return;
         }
-        //counter = 0;
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
         res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counter});
@@ -26,17 +32,27 @@ searchRouter.get("/", async (req, res, next)=> {
 searchRouter.post("/", async (req, res, next) => {
     console.log("Search Button Pressed");
     counter = 0;
+
+    curTitle = req.body.title;
+    curGenre = req.body.genre;
+    curActor = req.body.actorName;
+
+    console.log("Local Title: " + curTitle);
+    console.log("Local Genre: " + curGenre);
+    console.log("Local Actor: " + curActor);
+
     let actor = [];
-    if (req.body.actorName != "")
+    if (curActor != "")
     {
-        actor = await find("people","name",req.body.actorName, res)
+        actor = await find("people","name",curActor, res)
+        
     }
     //Query for collection
     db.collection("movies").find({
         //Query for each param
         $or: [
-            {title: req.body.title},
-            {genre: req.body.genre},
+            {title: curTitle},
+            {genre: curGenre},
             {actor: actor._id}
         ]}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
         if(err){
@@ -47,25 +63,81 @@ searchRouter.post("/", async (req, res, next) => {
         //counter = 0;
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
-        res.status(200).render("pages/search",{searchResults: results.splice(0,10), counter});
+        res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counter});
     });
 });
 
 
 searchRouter.post("/next", async (req, res, next) => {
-    
     console.log("Next Button Pressed.")
-    counter += 5;
-    res.redirect("/search");
+    counter += 10;
+    //Checking if there was a search
+    if((curTitle == "") && (curGenre == "") && (curActor == "")){
+        res.redirect("/search")
+    }else{
+        let actor = [];
+        if (curActor != "")
+        {
+            actor = await find("people","name",curActor, res)
+            
+        }
+        //Query for collection
+        db.collection("movies").find({
+            //Query for each param
+            $or: [
+                {title: curTitle},
+                {genre: curGenre},
+                {actor: actor._id}
+            ]}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
+            if(err){
+                res.status(500).send("Error Reading Database.");
+                return;
+            }
+            //Results is the arraylist of movies
+            //counter = 0;
+            console.log("Search Successful: ")
+            console.log(results.length + " Movies Listed")
+            res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counter});
+        });
+    }
 });
 searchRouter.post("/prev", async (req, res, next) => {
     console.log("Previous Button Pressed")
-    if ((counter-5) < 0){
+    if ((counter-10) < 0){
         counter = 0;
     }else{
-        counter -= 5;
+        counter -= 10;
     }
-    res.redirect("/search");
+
+    if((curTitle == "") && (curGenre == "") && (curActor == "")){
+        res.redirect("/search");
+    }else{
+
+        let actor = [];
+        if (curActor != "")
+        {
+            actor = await find("people","name",curActor, res)
+            
+        }
+        //Query for collection
+        db.collection("movies").find({
+            //Query for each param
+            $or: [
+                {title: curTitle},
+                {genre: curGenre},
+                {actor: actor._id}
+            ]}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
+            if(err){
+                res.status(500).send("Error Reading Database.");
+                return;
+            }
+            //Results is the arraylist of movies
+            //counter = 0;
+            console.log("Search Successful: ")
+            console.log(results.length + " Movies Listed")
+            res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counter});
+        });
+    }
 });
 
 

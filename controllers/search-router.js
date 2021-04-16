@@ -23,7 +23,13 @@ searchRouter.get("/", async (req, res, next)=> {
 //When the search button is clicked
 searchRouter.post("/", async (req, res, next) => {
     console.log("Search Button Pressed");
-    let actor = await find("people","name",req.body.actorName, res)
+    let actor = [];
+    if (req.body.actorName != "")
+    {
+        actor = await find("people","name",req.body.actorName, res)
+    }
+    //let actor = await find("people","name",req.body.actorName, res)
+    //console.log("ACTOR _ID: " + actor._id)
     //Query for collection
     db.collection("movies").find({
         //Query for each param

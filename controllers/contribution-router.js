@@ -80,89 +80,22 @@ contributionRouter.post("/movie", async (req, res, next) => {
     }   
     //Checking if people exist
     //DIRECTOR CHECK
-    if (req.body.movieDirector != ""){
-        await db.collection("people").find({name: req.body.movieDirector}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
-            if (err){
-                res.status(500).send("Error Reading Database.");
-                return;
-            }
-            //if results.length > 0, it means there exists a person with that name
-            if (results.length > 0){
-                newMovie.director.push(results[0]._id); 
-                //Also add the movie _id to the person's director field
-                db.collection("people").updateOne({name: req.body.movieDirector}, {$push:{director: newMovie._id}})
+    let curDirector = await find("people","name",req.body.movieDirector,res);
+    newMovie.director.push(curDirector._id);
+    db.collection("people").updateOne({name: req.body.movieDirector}, {$push:{director: newMovie._id}});
+    
+    let curWriter = await find("people","name",req.body.movieWriter,res);
+    newMovie.writer.push(curWriter._id);
+    db.collection("people").updateOne({name: req.body.movieDirector}, {$push:{director: newMovie._id}});
 
-                //NOTIFICATION HANDLING
-                for(let i = 0; i < myProfile.followedPeople.length; i++){
-                    if(myProfile.followedPeople[i] = (results[0]._id)){
-                        console.log("A PERSON YOU FOLLOW HAS CONTRIBUTED TO A NEW MOVIE")
-                    }
-                }
-            }else{
-                console.log("Person does not exists: Create Person First")
-                return;
-            }
-        });
-    }
-    //WRITER CHECK
-    if (req.body.movieWriter != ""){
-        await db.collection("people").find({name: req.body.movieWriter}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
-            if (err){
-                res.status(500).send("Error Reading Database.");
-                return;
-            }
-            //if results.length > 0, it means there exists a person with that name
-            if (results.length > 0){
-                newMovie.writer.push(results[0]._id); 
-                //Also add the movie _id to the person's writer field
-                db.collection("people").updateOne({name: req.body.movieWriter}, {$push: {writer: newMovie._id}})
+    let curActor = await find("people","name",req.body.movieActor,res);
+    newMovie.actor.push(curActor._id);
+    db.collection("people").updateOne({name: req.body.movieDirector}, {$push:{director: newMovie._id}});
 
-                //NOTIFICATION HANDLING
-                for(let i = 0; i < myProfile.followedPeople.length; i++){
-                    if(myProfile.followedPeople[i] = (results[0]._id)){
-                        console.log("A PERSON YOU FOLLOW HAS CONTRIBUTED TO A NEW MOVIE")
-                    }
-                }
-            }else{
-                console.log("Person does not exists: Create Person First")
-                return;
-            }
-        });
-    }
-    //ACTOR CHECK
-    if (req.body.movieActor != ""){
-        await db.collection("people").find({name: req.body.movieActor}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
-            if (err){
-                res.status(500).send("Error Reading Database.");
-                return;
-            }
-            //if results.length > 0, it means there exists a person with that name
-            if (results.length > 0){
-                newMovie.actor.push(results[0]._id); 
-                //Also add the movie _id to the person's actor field
-                db.collection("people").updateOne({name: req.body.movieActor}, {$push: {actor: newMovie._id}})
-
-                //NOTIFICATION HANDLING
-                for(let i = 0; i < myProfile.followedPeople.length; i++){
-                    if(myProfile.followedPeople[i] = (results[0]._id)){
-                        console.log("A PERSON YOU FOLLOW HAS CONTRIBUTED TO A NEW MOVIE")
-                    }
-                }
-            }else{
-                console.log("Person does not exists: Create Person First")
-                return;
-            }
-        });
-    }
-
-/*
-    if (newMovie.plot == undefined){
-        newMovie.plot = "";
-    }
     if (newMovie.awards == ''){
         newMovie.awards= "N/A";
     }
-    */
+    
     //Check if movie title already exists
     db.collection("movies").find({title: newMovie.title}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
         if (err){
@@ -175,27 +108,13 @@ contributionRouter.post("/movie", async (req, res, next) => {
             res.status(200).render("pages/contribute");
         }else{
             console.log("INSERTING MOVIE")
+            console.log(newMovie)
             db.collection("movies").insertOne(newMovie)
             res.status(200).render("pages/contribute");
         }
     })
 });
-//My reference for movie structure:
-/*
-[{"Title":"Meatballs 4",
-"Year":"1992",
-"Rated":"R",
-"Released":"04 Dec 1992",
-"Runtime":"84 min",
-"Genre":["Comedy"],
-"Director":["Bob Logan"],
-"Writer":["Bob Logan"],
-"Actors":["Corey Feldman","Jack Nance","Sarah Douglas","Bojesse Christopher"],
-"Plot":"Ricky is the hottest water-ski instructor around and he has just be rehired by his former employer/camp to whip up attendance. But the camp is in serious financial trouble and the owner of ...",
-"Awards":"N/A",
-"Poster":"https://m.media-amazon.com/images/M/MV5BZjY1NDZjYjYtZjRmMi00M2NhLTllMDktZDg2ZTRmNDA4Njc5XkEyXkFqcGdeQXVyNjQ4NTg2ODY@._V1_SX300.jpg"
-}]
-*/
+
 function find (coll,i,q, res) {
     return new Promise((resolve, reject) => {
         let query = {};
@@ -206,7 +125,7 @@ function find (coll,i,q, res) {
                 return;
             }
             if(!result){
-                res.status(404).send("Unknown ID");
+                res.status(404).send("Unknown ID, if you are adding a new person to a movie, please ensure you have created them first.");
                 return;
             }
             resolve(result);

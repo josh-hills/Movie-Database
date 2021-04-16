@@ -10,6 +10,8 @@ let db = mongoose.connection;
 
 //Create router
 contributionRouter.get("/", async (req, res, next)=> {
+    
+    
     db.collection("movies").find().toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
@@ -23,6 +25,7 @@ contributionRouter.get("/", async (req, res, next)=> {
 //CREATING A NEW PERSON
 
 contributionRouter.post("/newPerson", async (req, res, next) => {
+    let myProfile = await find("users","username",req.session.username);
     console.log("ADD ACTOR BUTTON PRESSED.")
     db.collection("people").find({name: req.body.actor}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
         if(err){
@@ -170,6 +173,23 @@ contributionRouter.post("/movie", async (req, res, next) => {
 "Poster":"https://m.media-amazon.com/images/M/MV5BZjY1NDZjYjYtZjRmMi00M2NhLTllMDktZDg2ZTRmNDA4Njc5XkEyXkFqcGdeQXVyNjQ4NTg2ODY@._V1_SX300.jpg"
 }]
 */
+function find (coll,i,q, res) {
+    return new Promise((resolve, reject) => {
+        let query = {};
+        query[i] = q;
+        db.collection(coll).findOne(query,function(err, result){
+            if(err){
+                res.status(500).send("Error reading database.");
+                return;
+            }
+            if(!result){
+                res.status(404).send("Unknown ID");
+                return;
+            }
+            resolve(result);
+        })
+    });
+}
 
 
 module.exports = contributionRouter;

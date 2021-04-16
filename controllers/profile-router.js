@@ -8,6 +8,7 @@ var bodyParser = require('body-parser')
 profileRotuer.get("/", async (req, res, next)=> {
     if(req.session.loggedin){
         let myProfile = await find("users","username",req.session.username);
+        db.collection("users").update({_id: myProfile._id},{$set: {contributer: false}})
         let myWatchlist = [];
         let myFollowedPeople = [];
         let myFollowedUsers = [];

@@ -1,5 +1,5 @@
 # 2406-Final
-Completed by Joshua Delfin and Joshua Hills
+Completed by Joshua Delfin (101159384) and Joshua Hills (101142996)
 
 PROJECT REPORT
 1. Code and database initialization:
@@ -23,13 +23,9 @@ PROJECT REPORT
             - UserModel.js
 
         - movieData (folder)
-            - movie-data-10.json
-            - movie-data-100.json
-            - movie-data-1000.json
             - movie-data-2500.json
 
         - views (folder)
-
             - pages (folder)
                 - contribute.pug
                 - index.pug
@@ -117,7 +113,7 @@ PROJECT CRITIQUE:
 1. Functionality:
 
 2. Design Critique:
-
+    We believe that our webpage is done fairly well with organized pages and visibility handling. For example, when there are no followed users, the followed users section will not be displayed on the profile page. Our webpage also has a good flow once you have used it a few times. It begins at a home page stating all the main pages like search and signgin, and if you sign in the profile information is ready and visible. Upon making yourself a contributor, a link to the contribution page appears making it so that only accounts with contributor status are able to reach that page.
 3. Algorithms:
     - Recommendation: 
         - The recommended list is based on the people you follow:

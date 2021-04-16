@@ -31,15 +31,14 @@ searchRouter.post("/", async (req, res, next) => {
     console.log("Title: " + req.body.title);
     console.log("Genre: " + req.body.genre);
     console.log("Actor Name: " + req.body.actorName);
-    console.log(req.body);
-    
+    let actor = await find("people","name",req.body.actorName, res)
     //Query for collection
     db.collection("movies").find({
         //Query for each param
         $or: [
             {title: req.body.title},
             {genre: req.body.genre},
-            {actors: req.body.actorName}
+            {actor: actor._id}
         ]}).collation({locale: 'en', strength: 2}).toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
@@ -69,4 +68,22 @@ searchRouter.post("/prev", async (req, res, next) => {
     res.status(200).render("pages/search",{searchResults: curList.splice(counter,10)});
 });
 */
+
+function find (coll,i,q, res) {
+    return new Promise((resolve, reject) => {
+        let query = {};
+        query[i] = q;
+        db.collection(coll).findOne(query,function(err, result){
+            if(err){
+                res.status(500).send("Error reading database.");
+                return;
+            }
+            if(!result){
+                res.status(404).send("Unknown ID");
+                return;
+            }
+            resolve(result);
+        })
+    });
+}
 module.exports = searchRouter;

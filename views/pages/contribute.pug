@@ -34,14 +34,14 @@ html
                 input.reqTextBox(type="number" placeholder="Enter The Movie Runtime" name="movieRuntime" required)
             h5.reqLabel Genre: 
                 input.reqTextBox(type="text" placeholder="Enter The Movie Genre" name="movieGenre" required)      
-            
-            h4.h4Label Extra Fields
             h5.label Writer: 
-                input.writersLabel(type="text" placeholder="Enter The Writers" name="movieWriter")
+                input.writersLabel(type="text" placeholder="Enter The Writers" name="movieWriter" required)
             h5.label Director: 
-                input.directorsLabel(type="text" placeholder="Enter The Directors" name="movieDirector")    
+                input.directorsLabel(type="text" placeholder="Enter The Directors" name="movieDirector" required)    
             h5.label Actor: 
-                input.actorsLabel(type="text" placeholder="Enter The Actors" name="movieActor")   
+                input.actorsLabel(type="text" placeholder="Enter The Actors" name="movieActor" required) 
+            p1.note Please note that people must exist in database to add as Directors, Writers or Actors. If you are entering a new person, please first add a person. 
+            h4.h4Label Extra Fields 
             h5.label Plot: 
                 input.actorsLabel(type="text" placeholder="Enter The Movie's Plot" name="moviePlot") 
             h5.label Awards: 

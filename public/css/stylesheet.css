@@ -272,3 +272,9 @@ a:hover{
    text-align: left;
    padding: 20px;
 }
+
+.note{
+   color: black;
+   text-align: left;
+   font-weight: bold;
+}

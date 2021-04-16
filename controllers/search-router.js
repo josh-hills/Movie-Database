@@ -5,8 +5,6 @@ const searchRouter = express.Router();
 const app = require('../server');
 mongoose.connect('mongodb://localhost/moviedb', {useNewUrlParser: true});
 let db = mongoose.connection;
-let curList = [];
-let counter;
 
 //Create router
 searchRouter.get("/", async (req, res, next)=> {
@@ -18,31 +16,15 @@ searchRouter.get("/", async (req, res, next)=> {
         }
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
-        curList=results;
+       
         
         res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counterNum: counter});
     });
     
    
 });
-/*
-function find (coll,i,q, res) {
-    return new Promise((resolve, reject) => {
-        let query = {};
-        query[i] = q;
-        db.collection(coll).findOne(query,function(err, result){
-            if(err){
-                res.status(500).send("Error reading database.");
-                return;
-            }
-            if(!result){
-                res.status(404).send("Unknown ID");
-                return;
-            }
-            resolve(result);
-        })
-    });
-*/
+
+//When the search button is clicked
 searchRouter.post("/", async (req, res, next) => {
     console.log("Search Button Pressed");
     console.log();
@@ -66,7 +48,6 @@ searchRouter.post("/", async (req, res, next) => {
         //Results is the arraylist of movies
         console.log("Search Successful: ")
         console.log(results.length + " Movies Listed")
-        curList=results;
         res.status(200).render("pages/search",{searchResults: results.splice(0,10)});
     });
 });

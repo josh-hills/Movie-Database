@@ -2,7 +2,7 @@ const express = require("express");
 const bp = require('body-parser');
 const session = require('express-session');
 const app = express();
-const port = 3000;
+const port = 27017;
 
 let movieController = require("./controllers/movie-router");
 let profileController = require("./controllers/profile-router");
@@ -52,5 +52,5 @@ app.use("/index", indexController);
 
 
 app.listen(port);
-console.log("Server listening at http://localhost:3000");
+console.log("Server listening at http://localhost:27017");
 module.exports = app;

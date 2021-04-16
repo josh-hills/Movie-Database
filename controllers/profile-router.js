@@ -87,6 +87,7 @@ profileRotuer.get("/", async (req, res, next)=> {
 
 profileRotuer.post("/"), async (req, res, next) => {
     console.log("Contributor Button Pressed.")
+    doRender(req, res, next, myProfile, myWatchlist, myFollowedUsers, myFollowedPeople, myRecommendations);
 }
 
 //function that queries the id for the passed query, using promises ensures that we can wait for the end of the function

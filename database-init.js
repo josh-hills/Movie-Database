@@ -41,7 +41,6 @@ function addPersonToMovie(personName, movie, position){
   //Retrieve the current person using their name, update the movie and person
   let curPerson = people[personName];
   curPerson[position].push(movie._id);
-  console.log(movie)
   movie[position].push(curPerson._id);
 }
 
@@ -100,6 +99,16 @@ db.once('open', function() {
     		  console.log(err);
     		  return;
     	  }
+
+        Movie.findOne({title: "Toy Story"}).populate("director actor writer").exec(function(err, result){
+          if(err)throw err;
+          
+          Person.findOne({name: "Tom Hanks"}).populate("actor director writer").exec(function(err, result){
+            if(err)throw err;
+            console.log("Database initialized")
+            mongoose.connection.close()
+          })
+        })
       });
     });
   });

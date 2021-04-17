@@ -82,6 +82,7 @@ PROJECT REPORT
         - The search page will start out with a list of movies
         - There is a prompt to search for movies with the requested title name, genres, and actors
         - After searching with a criteria, the list will display movies with the same title name, genres and actors.
+        - You can also go through the searched list by clicking next or previous to see all the movies in that search query.
 
     5. Contribute Page
         - The contribution page will display 2 different prompts.

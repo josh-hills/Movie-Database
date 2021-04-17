@@ -11,9 +11,20 @@ let curSearch = [];
 let curTitle = "";
 let curGenre = "";
 let curActor = "";
-
+let status = "searching";
 //Create router
 searchRouter.get("/", async (req, res, next)=> {
+
+
+    if(status == "searching")
+    {
+        curTitle = "";
+        curGenre = "";
+        curActor = "";
+        counter = 0;
+        status = "Reset"
+    }
+    console.log("STATUS: " + status)
     console.log("Local Title: " + curTitle);
     console.log("Local Genre: " + curGenre);
     console.log("Local Actor: " + curActor);
@@ -22,8 +33,8 @@ searchRouter.get("/", async (req, res, next)=> {
             res.status(500).send("Error Reading Database.");
             return;
         }
-        console.log("Search Successful: ")
-        console.log(results.length + " Movies Listed")
+        //console.log("Search Successful: ")
+        //console.log(results.length + " Movies Listed")
         res.status(200).render("pages/search",{searchResults: results.splice(counter,10), counter});
     });
 });
@@ -33,10 +44,12 @@ searchRouter.post("/", async (req, res, next) => {
     console.log("Search Button Pressed");
     counter = 0;
 
+    status = "searching";
     curTitle = req.body.title;
     curGenre = req.body.genre;
     curActor = req.body.actorName;
 
+    console.log("STATUS: " + status)
     console.log("Local Title: " + curTitle);
     console.log("Local Genre: " + curGenre);
     console.log("Local Actor: " + curActor);
@@ -44,8 +57,7 @@ searchRouter.post("/", async (req, res, next) => {
     let actor = [];
     if (curActor != "")
     {
-        actor = await find("people","name",curActor, res)
-        
+        actor = await find("people","name", curActor, res)
     }
     //Query for collection
     db.collection("movies").find({
@@ -71,6 +83,10 @@ searchRouter.post("/", async (req, res, next) => {
 searchRouter.post("/next", async (req, res, next) => {
     console.log("Next Button Pressed.")
     counter += 10;
+
+    console.log("Local Title: " + curTitle);
+    console.log("Local Genre: " + curGenre);
+    console.log("Local Actor: " + curActor);
     //Checking if there was a search
     if((curTitle == "") && (curGenre == "") && (curActor == "")){
         res.redirect("/search")
@@ -108,6 +124,10 @@ searchRouter.post("/prev", async (req, res, next) => {
     }else{
         counter -= 10;
     }
+
+    console.log("Local Title: " + curTitle);
+    console.log("Local Genre: " + curGenre);
+    console.log("Local Actor: " + curActor);
 
     if((curTitle == "") && (curGenre == "") && (curActor == "")){
         res.redirect("/search");

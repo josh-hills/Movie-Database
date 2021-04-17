@@ -7,6 +7,8 @@ html
         include ../partials/header
     div#main
         h1 Welcome to your profile, #{myProfile.username}
+        form#signOut(action="/logout",method="post")
+            input.logout(type="submit" name="logoutBtn" value="Log Out")
         //- div#notifications
         //-     h3 Notifications
         //-     ul.no-bullets

@@ -8,7 +8,8 @@ let userSchema = Schema({
     reviews:[],
     followedPeople: [],
     followedUsers: [],
-    watchlist: []
+    watchlist: [],
+    writer: [{type:String}]
 });
 
 module.exports = mongoose.model("User", userSchema);

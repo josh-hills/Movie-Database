@@ -4,6 +4,7 @@ const session = require('express-session');
 const app = express();
 const port = 27017;
 
+let logoutController = require("./controllers/logout-router");
 let movieController = require("./controllers/movie-router");
 let profileController = require("./controllers/profile-router");
 let signinController = require("./controllers/signin-router");
@@ -40,6 +41,7 @@ app.get("/", (req, res, next)=> {
 
 
 //init controllers
+app.use("/logout", logoutController);
 app.use("/movie", movieController);
 app.use("/signin", signinController);
 app.use("/profile", profileController);
@@ -52,5 +54,5 @@ app.use("/index", indexController);
 
 
 app.listen(port);
-console.log("Server listening at http://localhost:27017");
+console.log("Server listening at http://localhost:3000");
 module.exports = app;

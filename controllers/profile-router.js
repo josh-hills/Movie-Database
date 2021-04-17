@@ -8,7 +8,6 @@ var bodyParser = require('body-parser')
 profileRotuer.get("/", async (req, res, next)=> {
     if(req.session.loggedin){
         let myProfile = await find("users","username",req.session.username);
-        db.collection("users").updateOne({_id: myProfile._id},{$set: {contributer: false}})
         let myWatchlist = [];
         let myFollowedPeople = [];
         let myFollowedUsers = [];
@@ -95,9 +94,13 @@ profileRotuer.post("/", async (req, res, next) => {
     console.log("----------------------")
     if (contStatus == "Yes"){
         db.collection("users").updateOne({_id: myProfile._id},{$set: {contributer: true}})
+        
+        console.log(myProfile);
     }
     else{
         db.collection("users").updateOne({_id: myProfile._id},{$set: {contributer: false}})
+        
+        console.log(myProfile);
     }
     console.log(myProfile)
     res.redirect("/profile")

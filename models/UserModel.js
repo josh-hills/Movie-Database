@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let userSchema = Schema({
     username: String,
     password: String,
-    contributer: Boolean,
+    contributer: false,
     reviews:[],
     followedPeople: [],
     followedUsers: [],

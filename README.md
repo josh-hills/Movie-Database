@@ -74,7 +74,8 @@ PROJECT REPORT
             - followed People (with links to their page)
             - reviews made (with links to the review)
         - When on the profile page, if your account is declared as a contributor account, a link will appear to reach the contributor page
-        - Currently notifications are in the console for when a new movie is created and a person the current profile follows has contributed to that movie.
+        - Notifications when a user you follow creates a review will be displayed in your profile.
+
     3. Signin/up Page
         - this page will prompt to login or sign up if you are not already logged in
 
@@ -95,7 +96,6 @@ PROJECT REPORT
                 - Please note that if the person (director, writer, or actor) does not exist, you must first create their person document by using the "add person" prompt that the top of the page.
                 - Once the button is pressed, the movie will be added to the database if the name is unique.
 
-
     PART 2: SUB PAGES
     1. Movie Page
         - While NOT logged in:
@@ -113,12 +113,11 @@ PROJECT REPORT
 
 
 PROJECT CRITIQUE:
+1. Design Critique:
+    We believe that our webpage is done fairly well with organized pages and visibility handling. For example, when there are no followed users, the followed users section will not be displayed on the profile page. Our webpage also has a good flow once you have used it a few times. It begins at a home page stating all the main pages like search and signgin, and if you sign in the profile information is ready and visible. Upon making yourself a contributor, a link to the contribution page appears making it so that only accounts with contributor status are able to reach that page. 
+    Some things we can learn from creating this webpage is planning pages and routes in ways that will be efficient for certain information to be transferred instead of recreated throughout different pages. At times this can make loading certain things a bit easier. Also, in terms of run times, the planning plays a part because there are portions in which we were forced to use nested for-loops to get this required information needed to display on a page. One thing that was done well in our opinion was the structure of our database collections in terms of keeping information of documents from other collections. For example, getting information like the contributing actors, directors, and writers from a movie by directly having those specific people's _id in the movie.actor, movie.director, and movie.writer lists and the movie in the person's respective fields as well. This directly links their _ids each other.
 
-1. Functionality:
-
-2. Design Critique:
-    We believe that our webpage is done fairly well with organized pages and visibility handling. For example, when there are no followed users, the followed users section will not be displayed on the profile page. Our webpage also has a good flow once you have used it a few times. It begins at a home page stating all the main pages like search and signgin, and if you sign in the profile information is ready and visible. Upon making yourself a contributor, a link to the contribution page appears making it so that only accounts with contributor status are able to reach that page.
-3. Algorithms:
+2. Algorithms:
     - Recommendation: 
         - The recommended list is based on the people you follow:
         - It consists of up to 5 movies that users you follow have contributed to. (acted, directed, written)
@@ -132,7 +131,9 @@ PROJECT CRITIQUE:
         - For example, if the movie is a thriller, 5 movies with the thriller genre will be listed.
         - If multiple genres exist for the one movie, then the list will take the top 5 of the first genre unless there are less than 5
         - This is done by taking only up to 5 movies for the similar movie list.
-        
+
+    - Notifications
+        - When a user you follow writes a review, a notification tab will appear on your profile with that information.
 
 
 

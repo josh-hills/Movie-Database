@@ -2,7 +2,7 @@ const express = require("express");
 const bp = require('body-parser');
 const session = require('express-session');
 const app = express();
-const port = 27017;
+const port = 3000;
 
 let logoutController = require("./controllers/logout-router");
 let movieController = require("./controllers/movie-router");

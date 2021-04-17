@@ -60,6 +60,7 @@ html
                     each element in myFollowedUsers
                         li
                             a(href="/user?username="+element.username) #{element.username}
+            br
         if(reviews.length)
             div#review
                 h3 Reviews
@@ -67,7 +68,7 @@ html
                     each element in reviews
                         li
                             a(href="/review?id="+element._id) #{element.rating}/10
-
+            br
         if(myRecommendations.length)
             div#recommendedList
                 h3 Recommended Movies (Based on people you follow)
@@ -75,5 +76,13 @@ html
                         each movie in myRecommendations 
                             li 
                                 a(href="/movie?id="+movie._id) #{movie.title}
+            br
+        if(myProfile.notifications.length)
+            #notifications
+                h3 Notifications: 
+                    ul.no-bullets 
+                        each noti in myProfile.notifications 
+                            li 
+                                a(href="/review?id="+noti.reviewID) #{noti.user} created a new review, click here to view it!
 
         

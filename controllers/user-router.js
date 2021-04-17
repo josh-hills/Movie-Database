@@ -72,12 +72,21 @@ userRouter.post("/", async (req, res, next)=> {
         doRender(req, res, next, userProfile, userWatchlist, userFollowedPeople, userFollowedUsers);
     }else if(req.body.follow){
         let query = {};
+        let query2 = {};
         query["username"] = req.query.username;
+        query2["username"] = req.session.username;
+        userProfile.followers.push(query2)
         myProfile.followedUsers.push(query);
         await db.collection("users").updateOne(
             {username:myProfile.username},
             {
                 $set:{"followedUsers":myProfile.followedUsers}
+            }
+        );
+        await db.collection("users").updateOne(
+            {username:userProfile.username},
+            {
+                $set:{"followers":userProfile.followers}
             }
         );
         doRender(req, res, next, userProfile, userWatchlist, userFollowedPeople, userFollowedUsers);

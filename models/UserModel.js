@@ -9,7 +9,9 @@ let userSchema = Schema({
     followedPeople: [],
     followedUsers: [],
     watchlist: [],
-    writer: [{type:String}]
+    followers:[],
+    writer: [{type:String}],
+    notifications:[]
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -53,6 +53,20 @@ reviewRouter.post("/", async (req, res, next)=> {
                         $set:{"reviews":movReviewArr}
                     }
                 );
+                for(let i = 0; i < u.followers.length; i++){
+                    let followerUsername = u.followers[i].username;
+                    console.log(followerUsername);
+                    let follower = await find("users", "username", followerUsername, res);
+                    let newNoti = {"user":un, "reviewID":reviewID};
+                    currNoti = follower.notifications;
+                    currNoti.push(newNoti);
+                    await db.collection("users").updateOne(
+                        {username:followerUsername},
+                        {
+                            $set:{"notifications":currNoti}
+                        }
+                    );
+                }
                 doRender(req, res, next, r, m ,u);
             }
         })

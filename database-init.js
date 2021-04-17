@@ -30,6 +30,7 @@ function addPersonToMovie(personName, movie, position){
     newPerson.director = [];
     newPerson.actor = [];
     newPerson.writer = [];
+    newPerson.followers = [];
     //Add new Person document to our array of all people
     allPeople.push(newPerson);
     //Update the people object (name -> person document)

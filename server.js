@@ -54,5 +54,5 @@ app.use("/index", indexController);
 
 
 app.listen(port);
-console.log("Server listening at http://localhost:3000");
+console.log("Server listening at http://localhost:27017");
 module.exports = app;

@@ -95,9 +95,13 @@ profileRotuer.post("/", async (req, res, next) => {
     console.log("----------------------")
     if (contStatus == "Yes"){
         db.collection("users").updateOne({_id: myProfile._id},{$set: {contributer: true}})
+        
+        console.log(myProfile);
     }
     else{
         db.collection("users").updateOne({_id: myProfile._id},{$set: {contributer: false}})
+        
+        console.log(myProfile);
     }
     console.log(myProfile)
     res.redirect("/profile")

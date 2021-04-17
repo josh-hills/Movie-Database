@@ -8,6 +8,7 @@ let personSchema = Schema({
     director: [{type:String}],
     actor: [{type:String}],
     writer: [{type:String}],
+    followers: [{type:String}]
 });
 
 module.exports = mongoose.model("Person", personSchema);

@@ -1,6 +1,6 @@
 # 2406-Final
 Completed by Joshua Delfin (101159384) and Joshua Hills (101142996)
-
+THIS INFORMATION ALSO IN PDF FOLDER AS PROJECT REPORT.DOCX
 PROJECT REPORT
 1. Code and database initialization:
     - Before testing the movie database webpage, check that all required files are downloaded:
@@ -8,6 +8,7 @@ PROJECT REPORT
         - controllers (folder)
             - contribution-router.js
             - index-router.js
+            - logout-router.js
             - movie-router.js
             - person-router.js
             - profile-router.js
@@ -33,7 +34,7 @@ PROJECT REPORT
                 - person.pug
                 - profile.pug
                 - review.pug
-                - seach.pug
+                - search.pug
                 - signin.pug
                 - user.pug
 
@@ -52,10 +53,14 @@ PROJECT REPORT
         - To initializes databases, run the databse-init.js file by typing "node database-init.js" in a terminal within this directory:
             You will see all the documents being loaded to the database in the terminal console.
 
+
+
 2. Once all files, modules, and databases required are correctly installed you may begin testing the webpage:
     
     - To start the webpage run the server.js file by typing "node server.js" in a terminal within this directory.
-    - Go to your preffered webpage on address http://localhost:3000 to see the page, or click on the address link in the terminal console.
+    - Go to your preffered webpage on address http://localhost:27017 to see the page, or click on the address link in the terminal console.
+
+
 
 3. Testing the webpage:
     - The webpage will consist of 5 main pages: Home, Profile, Signin/Up, Search and Contribute.
@@ -113,11 +118,37 @@ PROJECT REPORT
 
 
 PROJECT CRITIQUE:
-1. Design Critique:
+
+1. Functionality/Implementations:
+    - Home Page displaying links to main pages.
+    - Profile page:
+        - if the current user is not logged in the profile page will display the signin page and prompt.
+        - if the current user is logged in, the profile page will display the information of the user.
+        - profile implementations: contributor status, followed people, watchlist, followed users, notifications, movie recommendations, logout button. (Links to all of these things)
+    - Signin page to signin
+    - Search page:
+        - Initially displays all movies in data base in sets of 10 movies.
+        - Next and previous buttons to navigate through the movelist
+        - Search to look for movies meeting title, genre, and actor criterion
+        - movies are links to movie pages.
+    - Contribution page:
+        - only available as a contributer
+        - Gives the ability to add people to the database
+        - Gives the ability to add movies to the database (and there for the ability to be listed in search page)
+    - Person Page:
+        - person page includes person information: movies written, acted in, and directed.
+    - Movies Page:
+        - Displays all movie information: poster if it has, title, actors, directors, writers, similar movies, reveiws, plot, description.
+        - This page also gives the ability for users that are logged in to create reviews.
+    - Reviews Page:
+        - Displays the current review and links back to person who created and movie it was for
+
+
+2. Design Critique:
     We believe that our webpage is done fairly well with organized pages and visibility handling. For example, when there are no followed users, the followed users section will not be displayed on the profile page. Our webpage also has a good flow once you have used it a few times. It begins at a home page stating all the main pages like search and signgin, and if you sign in the profile information is ready and visible. Upon making yourself a contributor, a link to the contribution page appears making it so that only accounts with contributor status are able to reach that page. 
     Some things we can learn from creating this webpage is planning pages and routes in ways that will be efficient for certain information to be transferred instead of recreated throughout different pages. At times this can make loading certain things a bit easier. Also, in terms of run times, the planning plays a part because there are portions in which we were forced to use nested for-loops to get this required information needed to display on a page. One thing that was done well in our opinion was the structure of our database collections in terms of keeping information of documents from other collections. For example, getting information like the contributing actors, directors, and writers from a movie by directly having those specific people's _id in the movie.actor, movie.director, and movie.writer lists and the movie in the person's respective fields as well. This directly links their _ids each other.
 
-2. Algorithms:
+3. Algorithms:
     - Recommendation: 
         - The recommended list is based on the people you follow:
         - It consists of up to 5 movies that users you follow have contributed to. (acted, directed, written)

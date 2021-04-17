@@ -25,9 +25,6 @@ searchRouter.get("/", async (req, res, next)=> {
         status = "Reset"
     }
     console.log("STATUS: " + status)
-    console.log("Local Title: " + curTitle);
-    console.log("Local Genre: " + curGenre);
-    console.log("Local Actor: " + curActor);
     db.collection("movies").find().toArray( function(err, results){
         if(err){
             res.status(500).send("Error Reading Database.");
@@ -50,9 +47,6 @@ searchRouter.post("/", async (req, res, next) => {
     curActor = req.body.actorName;
 
     console.log("STATUS: " + status)
-    console.log("Local Title: " + curTitle);
-    console.log("Local Genre: " + curGenre);
-    console.log("Local Actor: " + curActor);
 
     let actor = [];
     if (curActor != "")

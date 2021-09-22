@@ -1,7 +1,5 @@
-# 2406-Final
+# Movie Database
 Completed by Joshua Delfin (101159384) and Joshua Hills (101142996)
-THIS INFORMATION ALSO IN PDF FOLDER AS PROJECT REPORT.DOCX
-PROJECT REPORT
 1. Code and database initialization:
     - Before testing the movie database webpage, check that all required files are downloaded:
 
